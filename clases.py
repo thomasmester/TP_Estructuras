@@ -5,17 +5,16 @@ class Club:
         self.direccion = direccion
         self.lista_socios = []
 
-    def agregarSocio(self, s):
+    def agregarSocio(self, socio):
         esta = False
         for i in range(len(self.lista_socios)):
-            if s.nroSocio == self.lista_socios[i][5]:
+            if socio.nroSocio == self.lista_socios[i][5]:
                 esta = True
         if esta == False:
-            self.lista_socios.append(s)
-            print("El socio {} {} ha sido agregado con éxito al club.".format(
-                s.nombre, s.apellido))
+            self.lista_socios.append(socio)
+            print("El socio {} {} ha sido agregado con éxito al club.".format(socio.nombre, socio.apellido))
         else:
-            print("Ya existe un socio con el numero de socio {}".format(s.nroSocio))
+            print("Ya existe un socio con el numero de socio {}".format(socio.nroSocio))
 
     def eliminarSocio(self, nroSocio):
         esta = False
@@ -25,11 +24,9 @@ class Club:
                 indiceAux = i
         if esta == True:
             self.lista_socios.pop(indiceAux)
-            print("El socio cuyo numero de socio es {} ha sido eliminado con éxito.".format(
-                nroSocio))
+            print("El socio cuyo numero de socio es {} ha sido eliminado con éxito.".format(nroSocio))
         else:
-            print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(
-                nroSocio))
+            print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(nroSocio))
 
 
 class Persona:
@@ -41,8 +38,7 @@ class Persona:
         self.DNI = DNI
 
     def presentacion(self):
-        print("Me llamo {} {} y tengo {} años".format(
-            self.nombre, self.apellido, self.edad))
+        print("Me llamo {} {} y tengo {} años".format(self.nombre, self.apellido, self.edad))
 
 
 class Socio(Persona):
