@@ -3,6 +3,31 @@ class Club:
         self.nombre=nombre
         self.anioFundacion=anioFundacion
         self.direccion=direccion
+        self.lista_socios = []
+    
+    def agregarSocio(self, nombre, apellido, sexo, edad, DNI, nroSocio, correoElectronico):
+        socio = (nombre, apellido, sexo, edad, DNI, nroSocio, correoElectronico)
+        esta=False
+        for i in range(len(self.lista_socios)):
+            if nroSocio==self.lista_socios[i][5]:
+                esta=True
+        if esta==False:
+            self.lista_socios.append(socio)
+            print("El socio {} {} ha sido agregado con éxito al club.".format(nombre, apellido))
+        else:
+            print("Ya existe un socio con el numero de socio {}".format(nroSocio))
+    
+    def eliminarSocio(self, nroSocio):
+            esta=False
+            for i in range(len(self.lista_socios)):
+                if nroSocio==self.lista_socios[i][5]:
+                    esta=True
+                    indiceAux=i
+            if esta==True:
+                self.lista_socios.pop(indiceAux)
+                print("El socio cuyo numero de socio es {} ha sido eliminado con éxito.".format(nroSocio))
+            else:
+                print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(nroSocio))
 
 class Persona:
     def __init__(self, nombre, apellido, sexo, edad, DNI):
@@ -11,6 +36,7 @@ class Persona:
         self.sexo=sexo
         self.edad=edad
         self.DNI=DNI
+    
     def presentacion(self):
         print("Me llamo {} {} y tengo {} años".format(self.nombre, self.apellido, self.edad))
 
@@ -31,6 +57,7 @@ class Actividad:
     def __init__(self, nombre, tipo):
         self.nombre=nombre
         self.tipo=tipo
+    
     def informacion(self):
         print("La actividad {} es {}".format(self.nombre, self.tipo))
 
