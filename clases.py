@@ -8,25 +8,28 @@ class Club:
     def agregarSocio(self, socio):
         esta = False
         for i in range(len(self.lista_socios)):
-            if socio.nroSocio == self.lista_socios[i][5]:
+            if socio.nroSocio == self.lista_socios[i].nroSocio:
                 esta = True
         if esta == False:
             self.lista_socios.append(socio)
-            print("El socio {} {} ha sido agregado con éxito al club.".format(socio.nombre, socio.apellido))
+            print("El socio {} {} ha sido agregado con éxito al club.".format(
+                socio.nombre, socio.apellido))
         else:
             print("Ya existe un socio con el numero de socio {}".format(socio.nroSocio))
 
     def eliminarSocio(self, nroSocio):
         esta = False
         for i in range(len(self.lista_socios)):
-            if nroSocio == self.lista_socios[i][5]:
+            if nroSocio == self.lista_socios[i].nroSocio:
                 esta = True
                 indiceAux = i
         if esta == True:
             self.lista_socios.pop(indiceAux)
-            print("El socio cuyo numero de socio es {} ha sido eliminado con éxito.".format(nroSocio))
+            print("El socio cuyo numero de socio es {} ha sido eliminado con éxito.".format(
+                nroSocio))
         else:
-            print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(nroSocio))
+            print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(
+                nroSocio))
 
 
 class Persona:
@@ -38,7 +41,8 @@ class Persona:
         self.DNI = DNI
 
     def presentacion(self):
-        print("Me llamo {} {} y tengo {} años".format(self.nombre, self.apellido, self.edad))
+        print("Me llamo {} {} y tengo {} años".format(
+            self.nombre, self.apellido, self.edad))
 
 
 class Socio(Persona):
@@ -97,6 +101,12 @@ class Pago:
 
 
 c = Club('river', 912, 'iguazu 343 ')
-s = Socio('manu', 'ebje', 'm', 16, 44333222, 1, 'manu@ejbe.com')
-c.agregarSocio(s)
+s1 = Socio('manu', 'ebje', 'm', 16, 44333222, 1, 'manu@ejbe.com')
+s2 = Socio('manu', 'ebje', 'm', 16, 44333222, 2, 'manu@ejbe.com')
+s3 = Socio('manu', 'ebje', 'm', 16, 44333222, 2, 'manu@ejbe.com')
+c.agregarSocio(s1)
+c.agregarSocio(s2)
+c.agregarSocio(s3)
+c.eliminarSocio(2)
+c.eliminarSocio(3)
 print(c.lista_socios[0])
