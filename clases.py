@@ -4,6 +4,7 @@ class Club:
         self.anioFundacion = anioFundacion
         self.direccion = direccion
         self.lista_socios = []
+        self.lista_instalaciones = []
 
     def agregarSocio(self, socio):
         esta = False
@@ -27,6 +28,29 @@ class Club:
             print("El socio cuyo numero de socio es {} ha sido eliminado con éxito.".format(nroSocio))
         else:
             print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(nroSocio))
+
+    def agregarInstalacion(self, instalacion):
+        esta = False
+        for i in range(len(self.lista_instalaciones)):
+            if instalacion.codigoInstalacion == self.lista_instalaciones[i].codigoInstalacion:
+                esta = True
+        if esta == False:
+            self.lista_instalaciones.append(instalacion)
+            print("La instalacion {} cuyo codigo es {} ha sido agregado con éxito al club.".format(instalacion.nombre, instalacion.codigoInstalacion))
+        else:
+            print("Ya existe una instalacion con el codigo {}".format(instalacion.codigoInstalacion))
+
+    def eliminarInstalacion(self, codigoInstalacion):
+        esta = False
+        for i in range(len(self.lista_instalaciones)):
+            if codigoInstalacion == self.lista_instalaciones[i].codigoInstalacion:
+                esta = True
+                indiceAux = i
+        if esta == True:
+            self.lista_instalaciones.pop(indiceAux)
+            print("La instalacion cuyo codigo es {} ha sido eliminada con éxito.".format(codigoInstalacion))
+        else:
+            print("No hay ninguna instalacion en el club cuyo codigo sea el {}".format(codigoInstalacion))
 
 
 class Persona:
@@ -65,19 +89,18 @@ class Actividad:
     def informacion(self):
         print("La actividad {} es {}".format(self.nombre, self.tipo))
 
-
 class Instalacion:
-    def __init__(self, nombre, descripcion, ubicacion, horaApertura, horaCierre):
+    def __init__(self, nombre, descripcion, ubicacion, horaApertura, horaCierre, codigoInstalacion):
         self.nombre = nombre
         self.descripcion = descripcion
         self.ubicacion = ubicacion
         self.horaApertura = horaApertura
         self.horaCierre = horaCierre
-
+        self.codigoInstalacion=codigoInstalacion
 
 class Reserva:
-    def __init__(self, nombre, descripcion, ubicacion, horaApertura, horaCierre, fechaReserva, horaReserva):
-        super().__init__(nombre, descripcion, ubicacion, horaApertura, horaCierre)
+    def __init__(self, nombre, descripcion, ubicacion, horaApertura, horaCierre, codigoInstalacion, fechaReserva, horaReserva):
+        super().__init__(nombre, descripcion, ubicacion, horaApertura, horaCierre, codigoInstalacion)
         self.fechaReserva = fechaReserva
         self.horaReserva = horaReserva
 
