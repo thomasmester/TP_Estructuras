@@ -12,8 +12,7 @@ class Club:
                 esta = True
         if esta == False:
             self.lista_socios.append(socio)
-            print("El socio {} {} ha sido agregado con éxito al club.".format(
-                socio.nombre, socio.apellido))
+            print("El socio {} {} ha sido agregado con éxito al club.".format(socio.nombre, socio.apellido))
         else:
             print("Ya existe un socio con el numero de socio {}".format(socio.nroSocio))
 
@@ -25,11 +24,9 @@ class Club:
                 indiceAux = i
         if esta == True:
             self.lista_socios.pop(indiceAux)
-            print("El socio cuyo numero de socio es {} ha sido eliminado con éxito.".format(
-                nroSocio))
+            print("El socio cuyo numero de socio es {} ha sido eliminado con éxito.".format(nroSocio))
         else:
-            print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(
-                nroSocio))
+            print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(nroSocio))
 
 
 class Persona:
@@ -98,15 +95,3 @@ class Pago:
         self.monto = monto
         self.fecha = fecha
         self.nroSocio = nroSocio
-
-
-c = Club('river', 912, 'iguazu 343 ')
-s1 = Socio('manu', 'ebje', 'm', 16, 44333222, 1, 'manu@ejbe.com')
-s2 = Socio('manu', 'ebje', 'm', 16, 44333222, 2, 'manu@ejbe.com')
-s3 = Socio('manu', 'ebje', 'm', 16, 44333222, 2, 'manu@ejbe.com')
-c.agregarSocio(s1)
-c.agregarSocio(s2)
-c.agregarSocio(s3)
-c.eliminarSocio(2)
-c.eliminarSocio(3)
-print(c.lista_socios[0])
