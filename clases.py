@@ -5,6 +5,7 @@ class Club:
         self.direccion = direccion
         self.lista_socios = []
         self.lista_instalaciones = []
+        self.lista_pagos=[]
 
     def agregarSocio(self, socio):
         esta = False
@@ -12,11 +13,12 @@ class Club:
             if socio.nroSocio == self.lista_socios[i].nroSocio:
                 esta = True
         if esta == False:
-            self.lista_socios.append(socio)
+            self.lista_socios.append(socio)  
             print("El socio {} {} ha sido agregado con éxito al club.".format(
                 socio.nombre, socio.apellido))
         else:
             print("Ya existe un socio con el numero de socio {}".format(socio.nroSocio))
+            
 
     def eliminarSocio(self, nroSocio):
         esta = False
@@ -31,6 +33,19 @@ class Club:
         else:
             print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(
                 nroSocio))
+    
+    def agregar_pago(self,pago):
+        esta = False
+        for i in range(len(self.lista_pagos)):
+            if pago.codigoPago == self.lista_pagos[i].codigoPago:
+                esta = True
+        if esta == False:
+            self.lista_socios.append(pago)  
+            print("El socio {} {} ha sido agregado con éxito al club.").format(
+                pago.codigoPago)
+        else:
+            print("Ya existe un pago con el codigo de pago {}".format(pago.codigoPago))
+               
 
     def agregarInstalacion(self, instalacion):
         esta = False
@@ -155,14 +170,10 @@ class Evento:
 
 
 class Pago:
-    def __init__(self, monto, fecha, nroSocio):
+    def __init__(self, monto, fecha, socio: Socio,club:Club,codigoPago):
+        if socio not in club.lista_socios:
+            raise ValueError ('El socio {} no está en el club {}'.format(socio.nombre,club.nombre))        
         self.monto = monto
         self.fecha = fecha
-        self.nroSocio = nroSocio
-
-
-i = Instalacion('Cancha de badmington', 'Cancha 1',
-                'Predio de ezeiza', '09', '12', 1)
-r = Reserva('09/12/2018', '9:12', 1)
-i.agregarReserva(r)
-i.eliminarReserva(2)
+        self.socio=socio 
+        self.codigoPago=codigoPago
