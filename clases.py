@@ -176,4 +176,4 @@ class Pago:
         self.monto = monto
         self.fecha = fecha
         self.socio=socio 
-        self.codigoPago=codigoPago
+        self.codigoPago = codigoPago      
