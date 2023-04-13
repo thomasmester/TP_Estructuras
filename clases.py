@@ -13,7 +13,8 @@ class Club:
                 esta = True
         if esta == False:
             self.lista_socios.append(socio)
-            print("El socio {} {} ha sido agregado con éxito al club.".format(socio.nombre, socio.apellido))
+            print("El socio {} {} ha sido agregado con éxito al club.".format(
+                socio.nombre, socio.apellido))
         else:
             print("Ya existe un socio con el numero de socio {}".format(socio.nroSocio))
 
@@ -25,9 +26,11 @@ class Club:
                 indiceAux = i
         if esta == True:
             self.lista_socios.pop(indiceAux)
-            print("El socio cuyo numero de socio es {} ha sido eliminado con éxito.".format(nroSocio))
+            print("El socio cuyo numero de socio es {} ha sido eliminado con éxito.".format(
+                nroSocio))
         else:
-            print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(nroSocio))
+            print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(
+                nroSocio))
 
     def agregarInstalacion(self, instalacion):
         esta = False
@@ -36,9 +39,11 @@ class Club:
                 esta = True
         if esta == False:
             self.lista_instalaciones.append(instalacion)
-            print("La instalacion {} cuyo codigo es {} ha sido agregado con éxito al club.".format(instalacion.nombre, instalacion.codigoInstalacion))
+            print("La instalacion {} cuyo codigo es {} ha sido agregado con éxito al club.".format(
+                instalacion.nombre, instalacion.codigoInstalacion))
         else:
-            print("Ya existe una instalacion con el codigo {}".format(instalacion.codigoInstalacion))
+            print("Ya existe una instalacion con el codigo {}".format(
+                instalacion.codigoInstalacion))
 
     def eliminarInstalacion(self, codigoInstalacion):
         esta = False
@@ -48,9 +53,11 @@ class Club:
                 indiceAux = i
         if esta == True:
             self.lista_instalaciones.pop(indiceAux)
-            print("La instalacion cuyo codigo es {} ha sido eliminada con éxito.".format(codigoInstalacion))
+            print("La instalacion cuyo codigo es {} ha sido eliminada con éxito.".format(
+                codigoInstalacion))
         else:
-            print("No hay ninguna instalacion en el club cuyo codigo sea el {}".format(codigoInstalacion))
+            print("No hay ninguna instalacion en el club cuyo codigo sea el {}".format(
+                codigoInstalacion))
 
 
 class Persona:
@@ -97,11 +104,44 @@ class Instalacion:
         self.ubicacion = ubicacion
         self.horaApertura = horaApertura
         self.horaCierre = horaCierre
-        self.codigoInstalacion=codigoInstalacion
+        self.codigoInstalacion = codigoInstalacion
+
+        self.listaReservas = []
+
+    def agregarReserva(self, res):
+        disponible = True
+        for i in range(len(self.listaReservas)):
+            if res.fechaReserva == self.listaReservas[i].fechaReserva and res.horaReserva == self.listaReservas[i].horaReserva:
+                disponible = False
+        if disponible:
+            self.listaReservas.append(res)
+            print('Su reserva para el día {} a las {} a sido agendada con éxito.'.format(
+                res.fechaReserva, res.horaReserva))
+        else:
+            print(
+                'El horario de las {} en el día {} no está disponible, por favor seleccione otro.'.format(res.horaReserva, res.fechaReserva))
+
+    def eliminarReserva(self, nroReserva):
+        horaElim = ''
+        fechaElim = ''
+        eliminada = False
+        for j in range(len(self.listaReservas)):
+            if nroReserva == self.listaReservas[j].nroReserva:
+
+                horaElim = self.listaReservas[j].horaReserva
+                fechaElim = self.listaReservas[j].fechaReserva
+                self.listaReservas.pop(j)
+                eliminada = True
+            if not eliminada:
+                print('No existe una reserva con el número {}'.format(nroReserva))
+            else:
+                print('La reserva de las {} el día {} fue eliminada con éxito.'.format(
+                    horaElim, fechaElim))
+
 
 class Reserva:
-    def __init__(self, nombre, descripcion, ubicacion, horaApertura, horaCierre, codigoInstalacion, fechaReserva, horaReserva):
-        super().__init__(nombre, descripcion, ubicacion, horaApertura, horaCierre, codigoInstalacion)
+    def __init__(self, fechaReserva, horaReserva, nroReserva):
+        self.nroReserva = nroReserva
         self.fechaReserva = fechaReserva
         self.horaReserva = horaReserva
 
@@ -119,3 +159,10 @@ class Pago:
         self.monto = monto
         self.fecha = fecha
         self.nroSocio = nroSocio
+
+
+i = Instalacion('Cancha de badmington', 'Cancha 1',
+                'Predio de ezeiza', '09', '12', 1)
+r = Reserva('09/12/2018', '9:12', 1)
+i.agregarReserva(r)
+i.eliminarReserva(2)
