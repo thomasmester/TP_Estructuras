@@ -89,6 +89,7 @@ class Actividad:
     def informacion(self):
         print("La actividad {} es {}".format(self.nombre, self.tipo))
 
+
 class Instalacion:
     def __init__(self, nombre, descripcion, ubicacion, horaApertura, horaCierre, codigoInstalacion):
         self.nombre = nombre
