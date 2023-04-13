@@ -119,19 +119,18 @@ class Empleado(Persona):
 
 
 class Actividad:
-    def __init__(self, nombre, tipo):
+    def __init__(self, nombre, tipo, codigoInstalacion):
         self.nombre = nombre
         self.tipo = tipo
-
+        self.codigoInstalacion=codigoInstalacion
     def informacion(self):
         print("La actividad {} es {}".format(self.nombre, self.tipo))
 
 
 class Instalacion:
-    def __init__(self, nombre, descripcion, ubicacion, horaApertura, horaCierre, codigoInstalacion):
+    def __init__(self, nombre, descripcion, horaApertura, horaCierre, codigoInstalacion):
         self.nombre = nombre
         self.descripcion = descripcion
-        self.ubicacion = ubicacion
         self.horaApertura = horaApertura
         self.horaCierre = horaCierre
         self.codigoInstalacion = codigoInstalacion
@@ -177,15 +176,16 @@ class Reserva:
 
 
 class Evento:
-    def __init__(self, nombre, descripcion, fecha, hora):
+    def __init__(self, nombre, descripcion, fecha, hora, codigoInstalacion):
         self.nombre = nombre
         self.descripcion = descripcion
         self.fecha = fecha
         self.hora = hora
+        self.codigoInstalacion=codigoInstalacion
 
 
 class Pago:
-    def __init__(self, monto, fecha, socio: Socio,club:Club,codigoPago):
+    def __init__(self, monto, fecha, socio: Socio, club:Club,codigoPago):
         if socio not in club.lista_socios:
             raise ValueError ('El socio {} no está en el club {}'.format(socio.nombre,club.nombre))        
         self.monto = monto
