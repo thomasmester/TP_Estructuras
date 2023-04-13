@@ -5,18 +5,26 @@ class Club:
         self.direccion = direccion
         self.lista_socios = []
         self.lista_instalaciones = []
+        
+    def __str__(self):
+        return "Club {}".format(self.nombre)
 
     def agregarSocio(self, socio):
-        esta = False
+        nro = False
+        dni = False
         for i in range(len(self.lista_socios)):
             if socio.nroSocio == self.lista_socios[i].nroSocio:
-                esta = True
-        if esta == False:
+                nro = True
+            elif socio.DNI == self.lista_socios[i].DNI:
+                dni = True
+        if nro == False and dni == False:
             self.lista_socios.append(socio)
             print("El socio {} {} ha sido agregado con éxito al club.".format(
                 socio.nombre, socio.apellido))
-        else:
+        elif nro:
             print("Ya existe un socio con el numero de socio {}".format(socio.nroSocio))
+        elif dni:
+            print("Ya existe un socio con el DNI {}".format(socio.DNI   ))
 
     def eliminarSocio(self, nroSocio):
         esta = False
@@ -62,15 +70,15 @@ class Club:
 
 class Persona:
     def __init__(self, nombre, apellido, sexo, edad, DNI):
+        
         self.nombre = nombre
         self.apellido = apellido
         self.sexo = sexo
         self.edad = edad
         self.DNI = DNI
 
-    def presentacion(self):
-        print("Me llamo {} {} y tengo {} años".format(
-            self.nombre, self.apellido, self.edad))
+    def __str__(self):
+        return "Me llamo {} {} y tengo {} años".format(self.nombre, self.apellido, self.edad)
 
 
 class Socio(Persona):
@@ -78,6 +86,9 @@ class Socio(Persona):
         super().__init__(nombre, apellido, sexo, edad, DNI)
         self.nroSocio = nroSocio
         self.correoElectronico = correoElectronico
+    
+    def __str__(self):
+        return "Socio {} {} {} {}".format(self.nombre,self.apellido,self.DNI,self.nroSocio)
 
 
 class Empleado(Persona):
@@ -147,11 +158,12 @@ class Reserva:
 
 
 class Evento:
-    def __init__(self, nombre, descripcion, fecha, hora):
+    def __init__(self, nombre, descripcion, fecha, hora, Instalacion: Instalacion):
         self.nombre = nombre
         self.descripcion = descripcion
         self.fecha = fecha
         self.hora = hora
+        self.instalacion = Instalacion
 
 
 class Pago:
@@ -161,8 +173,5 @@ class Pago:
         self.nroSocio = nroSocio
 
 
-i = Instalacion('Cancha de badmington', 'Cancha 1',
-                'Predio de ezeiza', '09', '12', 1)
-r = Reserva('09/12/2018', '9:12', 1)
-i.agregarReserva(r)
-i.eliminarReserva(2)
+
+   
