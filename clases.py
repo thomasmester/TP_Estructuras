@@ -191,10 +191,7 @@ class Pago:
         self.monto = monto
         self.fecha = fecha
         self.socio=socio 
-<<<<<<< Updated upstream
-        self.codigoPago = codigoPago
-=======
-        self.codigoPago = codigoPago      
+        self.codigoPago = codigoPago   
         
 
 def ingreso(archivo):
@@ -217,12 +214,3 @@ def ingreso(archivo):
         for i in range(len(lista)):
             if lista[i] == usuario:
                 return lista[i+1] == contrsenia
-        
-
-        
-        
-
-def main():
-    
-    opcion = 
->>>>>>> Stashed changes
