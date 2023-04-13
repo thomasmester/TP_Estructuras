@@ -1,6 +1,10 @@
-class Club:
+class Club(object):
+    lista_nombres = []
     def __init__(self, nombre, anioFundacion, direccion):
+        if nombre in self.lista_nombres:
+            raise ValueError("Nombre repetido")
         self.nombre = nombre
+        self.lista_nombres.append(nombre)
         self.anioFundacion = anioFundacion
         self.direccion = direccion
         self.lista_socios = []
@@ -140,7 +144,8 @@ class Instalacion:
 
 
 class Reserva:
-    def __init__(self, fechaReserva, horaReserva, nroReserva):
+    def __init__(self, fechaReserva, horaReserva, nroReserva: int):
+        assert isinstance(nroReserva, int), TypeError("El numero de reserva debe ser entero")
         self.nroReserva = nroReserva
         self.fechaReserva = fechaReserva
         self.horaReserva = horaReserva
@@ -155,14 +160,10 @@ class Evento:
 
 
 class Pago:
-    def __init__(self, monto, fecha, nroSocio):
+    def __init__(self, monto, fecha, socio: Socio, club: Club, codigoPago):
+        if socio not in club.lista_socios:
+            raise ValueError("El socio {} no está en el club {}".format(socio.nombre, club.nombre))
         self.monto = monto
         self.fecha = fecha
-        self.nroSocio = nroSocio
-
-
-i = Instalacion('Cancha de badmington', 'Cancha 1',
-                'Predio de ezeiza', '09', '12', 1)
-r = Reserva('09/12/2018', '9:12', 1)
-i.agregarReserva(r)
-i.eliminarReserva(2)
+        self.socio = socio
+        self.codigoPago = codigoPago
