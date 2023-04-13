@@ -34,7 +34,7 @@ class Club:
             print("No hay ningun socio en el club cuyo numero de socio sea el {}".format(
                 nroSocio))
     
-    def agregar_pago(self,pago):
+    def agregarPago(self,pago):
         esta = False
         for i in range(len(self.lista_pagos)):
             if pago.codigoPago == self.lista_pagos[i].codigoPago:
@@ -45,6 +45,20 @@ class Club:
                 pago.codigoPago)
         else:
             print("Ya existe un pago con el codigo de pago {}".format(pago.codigoPago))
+            
+    def eliminarPago(self, codigoPago):
+        esta = False
+        for i in range(len(self.lista_pagos)):
+            if codigoPago == self.lista_pagos[i].codigoPago:
+                esta = True
+                indiceAux = i
+        if esta == True:
+            self.lista_pagos.pop(indiceAux)
+            print("El pago cuyo codigo es {} ha sido eliminado con éxito.".format(
+            codigoPago))
+        else:
+            print("No hay registrado un pago con el codigo {}".format(
+                codigoPago))
                
 
     def agregarInstalacion(self, instalacion):
