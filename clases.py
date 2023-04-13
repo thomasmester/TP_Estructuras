@@ -1,6 +1,8 @@
 class Club:
+    lista_nombres = []
     def __init__(self, nombre, anioFundacion, direccion):
-        self.nombre = nombre
+        if nombre in self.lista_nombres:
+            raise ValueError("Nombre repetido")
         self.anioFundacion = anioFundacion
         self.direccion = direccion
         self.lista_socios = []
@@ -60,7 +62,6 @@ class Club:
             print("No hay registrado un pago con el codigo {}".format(
                 codigoPago))
                
-
     def agregarInstalacion(self, instalacion):
         esta = False
         for i in range(len(self.lista_instalaciones)):
@@ -190,4 +191,4 @@ class Pago:
         self.monto = monto
         self.fecha = fecha
         self.socio=socio 
-        self.codigoPago = codigoPago      
+        self.codigoPago = codigoPago
