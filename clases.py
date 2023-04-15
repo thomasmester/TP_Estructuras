@@ -202,8 +202,8 @@ def ingreso(archivo):
         opcion = input("Ingrese la opción: ")
     if opcion == 1:
         usuario = input("Ingrese usuario: ")
-        contrsenia = input("Ingrese contraseña: ")
-        archivo.write(usuario + " " + contrsenia + '\n')
+        contrasenia = input("Ingrese contraseña: ")
+        archivo.write(usuario + " " + contrasenia + '\n')
     else:
         lista = []
         for linea in archivo:
