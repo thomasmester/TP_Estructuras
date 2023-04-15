@@ -206,11 +206,9 @@ def ingreso(archivo):
         archivo.write(usuario + " " + contrsenia + '\n')
     else:
         lista = []
-        otros = [" ",'\n']
         for linea in archivo:
-            for elemento in linea:
-                if elemento not in otros:
-                    lista.append(elemento)
+            uc = linea[:-1].split(" ")
+            lista.append(uc)
         for i in range(len(lista)):
-            if lista[i] == usuario:
-                return lista[i+1] == contrsenia
+            if lista[i][0] == usuario:
+                return lista[i][1] == contrasenia
