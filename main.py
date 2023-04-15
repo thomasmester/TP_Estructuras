@@ -13,20 +13,18 @@ def ingreso(archivo):
     print("1. Registrarse",'\n',"2. Iniciar sesión",'\n')
     opcion = input("Ingrese la opción: ")
     while opcion != 1 and opcion != 2:
-        opcion = input("Ingrese la opción: ")
+        opcion = input("Ingrese una opción valida: ")
     if opcion == 1:
         usuario = input("Ingrese usuario: ")
-        contrsenia = input("Ingrese contraseña: ")
-        archivo.write(usuario + " " + contrsenia + '\n')
+        contrasenia = input("Ingrese contraseña: ")
+        archivo.write(usuario + " " + contrasenia + '\n')
     else:
         lista = []
-        otros = [" ",'\n']
         for linea in archivo:
-            for elemento in linea:
-                if elemento not in otros:
-                    lista.append(elemento)
+            uc = linea[:-1].split(" ")
+            lista.append(uc)
         for i in range(len(lista)):
-            if lista[i] == usuario:
-                return lista[i+1] == contrsenia
+            if lista[i][0] == usuario:
+                return lista[i][1] == contrasenia
 
 print("aca va a estar el programa principal")
