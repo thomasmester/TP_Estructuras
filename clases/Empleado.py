@@ -1,4 +1,5 @@
-from Persona import Persona
+from clases.Persona import Persona
+
 
 class Empleado(Persona):
     def __init__(self, nombre, apellido, sexo, edad, DNI, legajo, cargo, salario):
