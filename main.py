@@ -45,7 +45,7 @@ def menuPrincipal():
           "15: Consultar reservas en una instalacion de un club"
           )
     opcionElegida=int(input("Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar:"))
-    while(opcionElegida!=1 and opcionElegida!=2 and opcionElegida!=3 and opcionElegida!=4 and opcionElegida!=5 and opcionElegida!=6 and opcionElegida!=7 and opcionElegida!=8 and opcionElegida!=9 and opcionElegida!=10 and opcionElegida!=11 and opcionElegida!=12 and opcionElegida!=13 and opcionElegida!=14 and opcionElegida!=15 and opcionElegida!=0):
+    while(opcionElegida not in range(0, 16)):
         opcionElegida=int(input("La opcion elegida no es valida. Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finaliar:"))
     match opcionElegida:
         case 0:
