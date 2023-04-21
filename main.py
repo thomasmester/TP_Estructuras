@@ -311,7 +311,7 @@ def consultarReservas():
     existe2=False
     while (existe2 == False):
         for j in range(len(clubes[aux1].lista_instalaciones)):
-            if clubes[aux1].lista_instalaciones[j]==codigo:
+            if clubes[aux1].lista_instalaciones[j].codigoInstalacion==codigo:
                 aux2=j
                 existe2=True
         codigo=input('Codigo de reserva inexistente. Ingrese el codigo de la instalacion de la cual desea consultar las reservas: ')
