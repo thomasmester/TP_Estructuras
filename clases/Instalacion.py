@@ -1,36 +1,38 @@
+from Club import Club
+
 class Instalacion:
-    def __init__(self, nombre, descripcion, horaApertura, horaCierre, codigoInstalacion):
+    def __init__(self, nombre, descripcion, horaApertura, horaCierre, codigoInstalacion, club: Club):
         self.nombre = nombre
         self.descripcion = descripcion
         self.horaApertura = horaApertura
         self.horaCierre = horaCierre
         self.codigoInstalacion = codigoInstalacion
+        self.club=club
+        self.lista_reservas = []
 
-        self.listaReservas = []
-
-    def agregarReserva(self, res):
+    def agregarReserva(self, reserva):
         disponible = True
-        for i in range(len(self.listaReservas)):
-            if res.fechaReserva == self.listaReservas[i].fechaReserva and res.horaReserva == self.listaReservas[i].horaReserva:
+        for i in range(len(self.lista_reservas)):
+            if reserva.fechaReserva == self.lista_reservas[i].fechaReserva and reserva.horaReserva == self.lista_reservas[i].horaReserva:
                 disponible = False
         if disponible:
-            self.listaReservas.append(res)
+            self.lista_reservas.append(reserva)
             print('Su reserva para el día {} a las {} a sido agendada con éxito.'.format(
-                res.fechaReserva, res.horaReserva))
+                reserva.fechaReserva, reserva.horaReserva))
         else:
             print(
-                'El horario de las {} en el día {} no está disponible, por favor seleccione otro.'.format(res.horaReserva, res.fechaReserva))
+                'El horario de las {} en el día {} no está disponible, por favor seleccione otro.'.format(reserva.horaReserva, reserva.fechaReserva))
 
     def eliminarReserva(self, nroReserva):
         horaElim = ''
         fechaElim = ''
         eliminada = False
-        for j in range(len(self.listaReservas)):
-            if nroReserva == self.listaReservas[j].nroReserva:
+        for j in range(len(self.lista_reservas)):
+            if nroReserva == self.lista_reservas[j].nroReserva:
 
-                horaElim = self.listaReservas[j].horaReserva
-                fechaElim = self.listaReservas[j].fechaReserva
-                self.listaReservas.pop(j)
+                horaElim = self.lista_reservas[j].horaReserva
+                fechaElim = self.lista_reservas[j].fechaReserva
+                self.lista_reservas.pop(j)
                 eliminada = True
             if not eliminada:
                 print('No existe una reserva con el número {}'.format(nroReserva))

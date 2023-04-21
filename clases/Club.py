@@ -11,6 +11,7 @@ class Club:
         self.lista_socios = []
         self.lista_instalaciones = []
         self.lista_pagos = []
+        self.lista_empleados = []
 
     def guardarClub(self):
         socios_text = ""
@@ -109,3 +110,29 @@ class Club:
         else:
             print("No hay ninguna instalacion en el club cuyo codigo sea el {}".format(
                 codigoInstalacion))
+
+    def agregarEmpleado(self, empleado):
+        esta = False
+        for i in range(len(self.lista_empleados)):
+            if empleado.legajo == self.lista_empleados[i].legajo:
+                esta = True
+        if esta == False:
+            self.lista_empleados.append(empleado)
+            print("El empleado {} {} ha sido agregado con éxito al club.".format(
+                empleado.nombre, empleado.apellido))
+        else:
+            print("Ya existe un empleado con el legajo {}".format(empleado.legajo))
+
+    def eliminarSocio(self, legajo):
+        esta = False
+        for i in range(len(self.lista_empleados)):
+            if legajo == self.lista_empleados[i].legajo:
+                esta = True
+                indiceAux = i
+        if esta == True:
+            self.lista_empleados.pop(indiceAux)
+            print("El empleado cuyo legajo es {} ha sido eliminado con éxito.".format(
+                legajo))
+        else:
+            print("No hay ningun empleado en el club cuyo legajo sea el {}".format(
+                legajo))
