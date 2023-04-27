@@ -27,6 +27,20 @@ def ingreso(archivo):
             if lista[i][0] == usuario:
                 return lista[i][1] == contrasenia
             
+
+c= Club('river', '1903', 'corrientes 912')
+s1 = Socio('manu', 'ejbe', 'm', '16', '45422222', '1', 'manu@ejbe.com')
+s2 = Socio('salva', 'luna', 'm', '19', '91255656', '2', 'salva@luna.com')
+e = Empleado('fran', 'plamitos', 'f', '69', '699121312', '2', 'PLAYER', '0')
+
+c.agregarEmpleado(e)
+c.agregarSocio(s1)
+c.agregarSocio(s2)
+pago = Pago('1312', '13/12/2003', s1, c, '2')
+c.agregarPago(pago)
+c.guardarClub()
+
+c.inicializarClub()
 def menuPrincipal():
     print("1: Registrar club", '\n',
           "2: Consultar informacion general de un club", '\n',

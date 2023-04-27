@@ -1,4 +1,4 @@
-from Club import Club
+from clases.Club import Club
 
 class Instalacion:
     def __init__(self, nombre, descripcion, horaApertura, horaCierre, codigoInstalacion, club: Club):

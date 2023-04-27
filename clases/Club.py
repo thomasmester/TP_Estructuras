@@ -1,3 +1,13 @@
+from clases.Socio import Socio
+from clases.Empleado import Empleado
+from clases.Instalacion import Instalacion
+from clases.Pago import Pago
+
+def splitearLista(lista, var):
+        ##recibe una lista de strings a splitear
+        for i in range(len(lista)):
+            lista[i] = lista[i].split(var)
+        return lista
 class Club:
     lista_nombres = []
 
@@ -17,21 +27,46 @@ class Club:
         socios_text = ""
         inst_text = ""
         pagos_text = ""
+        empleados_text = ""
         for socio in self.lista_socios:
             socios_text += (socio.nombre + "," + socio.apellido + "," + socio.sexo + "," + socio.edad + "," +
-                            socio.DNI + "," + str(socio.nroSocio) + "," + socio.correoElectronico + '\n')
+                            socio.DNI + "," + str(socio.nroSocio) + "," + socio.correoElectronico + '|')
         for inst in self.lista_instalaciones:
             inst_text += (inst.nombre + "," + inst.descripcion + "," + inst.horaApertura + "," + inst.horaCierre + "," +
-                          inst.codigoInstalacion + '\n')
+                          inst.codigoInstalacion + '|')
         for pago in self.lista_pagos:
             pagos_text += (pago.monto + "," + pago.fecha + "," +
-                           str(pago.socio.nroSocio) + "," + pago.codigoPago + '\n')
+                           str(pago.socio.nroSocio) + "," + pago.codigoPago + '|')
+        for empleado in self.lista_empleados:
+            empleados_text += (empleado.nombre + ',' +empleado.apellido + ',' + empleado.sexo + ',' + empleado.edad + ',' + empleado.DNI + ',' + empleado.legajo + ',' + empleado.cargo + ',' + empleado.salario + '|')
 
-        total_text = (socios_text + '@' + '\n' +
-                      inst_text + '@' + '\n' + pagos_text)
+        total_text = (socios_text[:-1] + '~'+
+                      inst_text[:-1] + '~' + pagos_text[:-1] + '~' + empleados_text[:-1])
         with open("{}.txt".format(self.nombre), "w") as f:
             f.write(total_text)
+    
+    def inicializarClub(self):
+        with open("{}.txt".format(self.nombre), "r") as f:
+            data = f.read()
+            texto = data.split('~')
+            sociosRaw = texto[0]
+            instRaw = texto[1]
+            pagosRaw = texto[2]
+            empleadosRaw = texto[3]
 
+            socios = sociosRaw.split('|')
+            inst = instRaw.split('|')
+            pagos = pagosRaw.split('|')
+            empleados = empleadosRaw.split('|')
+
+            socios = splitearLista(socios, ',')
+            inst = splitearLista(inst, ',')
+            pagos = splitearLista(pagos, ',')
+            empleados = splitearLista(empleados, ',')
+
+            ##falta convertir a objetos cada elemento de cada lista
+            
+    
     def agregarSocio(self, socio):
         esta = False
         for i in range(len(self.lista_socios)):

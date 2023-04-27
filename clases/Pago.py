@@ -11,3 +11,4 @@ class Pago:
         self.fecha = fecha
         self.socio = socio
         self.codigoPago = codigoPago
+    
