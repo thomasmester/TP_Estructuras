@@ -68,7 +68,6 @@ class Club:
             if socios[0] != ['']:
                 for s in socios:
                     self.lista_socios.append(Socio(*s))
-            print(inst[0])
             if inst[0] != ['']:
                 for i in inst:
                     self.lista_instalaciones.append(Instalacion(*i))

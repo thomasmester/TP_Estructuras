@@ -39,8 +39,12 @@ c.agregarPago(pago)
 c.guardarClub()'''
 
 c.inicializarClub()
+
 def menuPrincipal():
-    print("1: Registrar club", '\n',
+    termina=False
+    while (not termina):
+        print("Menu principal", '\n', 
+          "1: Registrar club", '\n',
           "2: Consultar informacion general de un club", '\n',
           "3: Registrar socio en un club", '\n',
           "4: Eliminar socio en un club", '\n',
@@ -56,42 +60,43 @@ def menuPrincipal():
           "14: Crear reserva en una instalacion", '\n', 
           "15: Consultar reservas en una instalacion de un club"
           )
-    opcionElegida=int(input("Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar:"))
-    while(opcionElegida not in range(0, 16)):
-        opcionElegida=int(input("La opcion elegida no es valida. Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finaliar:"))
-    match opcionElegida:
-        case 0:
-            return finalizarPrograma()
-        case 1:
-            return registrarClub()
-        case 2:
-            return consultarInfoClub()
-        case 3:
-            return registrarSocio()
-        case 4:
-            return eliminarSocio()
-        case 5:
-            return consultarSocios()
-        case 6:
-            return registrarInstalacion()
-        case 7:
-            return eliminarInstalacion()
-        case 8:
-            return consultarInstalaciones()
-        case 9:
-            return registrarEmpleado()
-        case 10:
-            return consultarEmpleados()
-        case 11:
-            return generarPago()
-        case 12:
-            return eliminarPago()
-        case 13:
-            return consultarPagos()
-        case 14:
-            return crearReserva()
-        case 15:
-            return consultarReservas()
+        opcionElegida=int(input("Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: "))
+        while(opcionElegida not in range(0, 16)):
+            opcionElegida=int(input("La opcion elegida no es valida. Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finaliar:"))
+        match opcionElegida:
+            case 0:
+                finalizarPrograma()
+                termina=True
+            case 1:
+                registrarClub()
+            case 2:
+                consultarInfoClub()
+            case 3:
+                registrarSocio()
+            case 4:
+                eliminarSocio()
+            case 5:
+                consultarSocios()
+            case 6:
+                registrarInstalacion()
+            case 7:
+                eliminarInstalacion()
+            case 8:
+                consultarInstalaciones()
+            case 9:
+                registrarEmpleado()
+            case 10:
+                consultarEmpleados()
+            case 11:
+                generarPago()
+            case 12:
+                eliminarPago()
+            case 13:
+                consultarPagos()
+            case 14:
+                crearReserva()
+            case 15:
+                consultarReservas()
         
 def finalizarPrograma():
     print('Sesión cerrada, programa finalizado')
@@ -181,7 +186,7 @@ def registrarInstalacion():
                 aux=i
                 existe=True
         nombreClub=input("Club inexistente. Ingrese el nombre del club en el que desea registrar la instalacion: ")
-    instalacion=Socio(nombre, descripcion, horaApertura, horaCiere, codigoInstalacion, clubes[aux])
+    instalacion=Socio(nombre, descripcion, horaApertura, horaCiere, codigoInstalacion, nombreClub)
     clubes[aux].agregarInstalacion(instalacion)
 
 def eliminarInstalacion():
@@ -253,14 +258,7 @@ def generarPago():
                 existe1=True
         nombreClub=input("Club inexistente. Ingrese el nombre del club en el que desea generar el pago: ")
     numeroSocio=input("Ingrese el numero de socio: ")
-    existe2=False
-    while(existe2==False):
-        for j in range(len(clubes[aux1].lista_socios)):
-            if clubes[aux1].lista_socios[j].nroSocio==numeroSocio:
-                aux2=j
-                existe2=True
-        numeroSocio=input("Socio inexistente. Ingrese el numero de socio: ")
-    pago=Pago(monto, fecha, clubes[aux1].lista_socios[aux2], clubes[aux1], codigoPago)
+    pago=Pago(monto, fecha, numeroSocio, codigoPago)
     clubes[aux1].agregarPago(pago)
 
 def eliminarPago():
@@ -329,3 +327,6 @@ def consultarReservas():
         codigo=input('Codigo de reserva inexistente. Ingrese el codigo de la instalacion de la cual desea consultar las reservas: ')
     for r in range(len(clubes[aux1].lista_instalaciones[aux2].lista_reservas)):
         print( clubes[aux1].lista_instalaciones[aux2].lista_reservas[r].nroReserva, '/n')
+
+
+menuPrincipal()     

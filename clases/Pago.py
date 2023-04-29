@@ -1,6 +1,3 @@
-
-
-
 class Pago:
     def __init__(self, monto, fecha, nroSocio, codigoPago):
         
