@@ -36,7 +36,7 @@ class Club:
                           inst.codigoInstalacion + '|')
         for pago in self.lista_pagos:
             pagos_text += (pago.monto + "," + pago.fecha + "," +
-                           str(pago.socio.nroSocio) + "," + pago.codigoPago + '|')
+                           str(pago.nroSocio) + "," + pago.codigoPago + '|')
         for empleado in self.lista_empleados:
             empleados_text += (empleado.nombre + ',' +empleado.apellido + ',' + empleado.sexo + ',' + empleado.edad + ',' + empleado.DNI + ',' + empleado.legajo + ',' + empleado.cargo + ',' + empleado.salario + '|')
 
@@ -59,11 +59,25 @@ class Club:
             pagos = pagosRaw.split('|')
             empleados = empleadosRaw.split('|')
 
+
             socios = splitearLista(socios, ',')
             inst = splitearLista(inst, ',')
             pagos = splitearLista(pagos, ',')
             empleados = splitearLista(empleados, ',')
-
+            
+            if socios[0] != ['']:
+                for s in socios:
+                    self.lista_socios.append(Socio(*s))
+            print(inst[0])
+            if inst[0] != ['']:
+                for i in inst:
+                    self.lista_instalaciones.append(Instalacion(*i))
+            if pagos[0] != ['']:
+                for p in pagos:
+                    self.lista_pagos.append(Pago(*p))
+            if empleados[0] != ['']:
+                for e in empleados:
+                    self.lista_empleados.append(Empleado(*e))
             ##falta convertir a objetos cada elemento de cada lista
             
     
@@ -94,11 +108,16 @@ class Club:
                 nroSocio))
 
     def agregarPago(self, pago):
-        esta = False
+        existeSocio = False
+        pagoYaExiste = False
+        for s in self.lista_socios:
+            if pago.nroSocio == s.nroSocio:
+                existeSocio = True
         for i in range(len(self.lista_pagos)):
             if pago.codigoPago == self.lista_pagos[i].codigoPago:
-                esta = True
-        if esta == False:
+                pagoYaExiste = True
+        
+        if not pagoYaExiste and existeSocio:
             self.lista_pagos.append(pago)
             print("El pago {} ha sido agregado con éxito al club.".format(
                 pago.codigoPago))
