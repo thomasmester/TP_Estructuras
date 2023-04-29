@@ -10,16 +10,18 @@ c= Club('river', '1903', 'corrientes 912')
 clubes=[c] #lista con OBJETOS club de la CLASE Club
 
 def ingreso(archivo):
-    archivo = open(archivo,"a",encoding="utf-8")
-    print("1. Registrarse",'\n',"2. Iniciar sesión",'\n')
+    print(" 1. Registrarse",'\n',"2. Iniciar sesión",'\n')
     opcion = input("Ingrese la opción: ")
-    while opcion != 1 and opcion != 2:
-        opcion = input("Ingrese una opción valida: ")
-    if opcion == 1:
-        usuario = input("Ingrese usuario: ")
-        contrasenia = input("Ingrese contraseña: ")
+    while opcion != "1" and opcion != "2":
+        opcion = input("Ingrese la opción: ")
+    usuario = input("Ingrese usuario: ")
+    contrasenia = input("Ingrese contraseña: ")
+    if opcion == "1":
+        archivo = open(archivo,"a",encoding="utf-8")
         archivo.write(usuario + " " + contrasenia + '\n')
+        archivo.close()
     else:
+        archivo = open(archivo,"r",encoding="utf-8")
         lista = []
         for linea in archivo:
             uc = linea[:-1].split(" ")
@@ -27,6 +29,7 @@ def ingreso(archivo):
         for i in range(len(lista)):
             if lista[i][0] == usuario:
                 return lista[i][1] == contrasenia
+        archivo.close()
             
 '''s1 = Socio('manu', 'ejbe', 'm', '16', '45422222', '1', 'manu@ejbe.com')
 s2 = Socio('salva', 'luna', 'm', '19', '91255656', '2', 'salva@luna.com')
