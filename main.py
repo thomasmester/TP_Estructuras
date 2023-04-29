@@ -20,6 +20,7 @@ def ingreso(archivo):
         archivo = open(archivo,"a",encoding="utf-8")
         archivo.write(usuario + " " + contrasenia + '\n')
         archivo.close()
+        menuPrincipal()
     else:
         archivo = open(archivo,"r",encoding="utf-8")
         lista = []
@@ -28,7 +29,10 @@ def ingreso(archivo):
             lista.append(uc)
         for i in range(len(lista)):
             if lista[i][0] == usuario:
-                return lista[i][1] == contrasenia
+                if lista[i][1] == contrasenia:
+                    menuPrincipal()
+                else:
+                    print("Usuario o contraseña incorrectos")
         archivo.close()
             
 '''s1 = Socio('manu', 'ejbe', 'm', '16', '45422222', '1', 'manu@ejbe.com')
@@ -103,7 +107,7 @@ def menuPrincipal():
         
 def finalizarPrograma():
     print('Sesión cerrada, programa finalizado')
-    return ingreso()
+    ingreso("archivo.txt")
 
 def registrarClub():
     nombre=input("Ingrese el nombre del club: ")
@@ -331,5 +335,4 @@ def consultarReservas():
     for r in range(len(clubes[aux1].lista_instalaciones[aux2].lista_reservas)):
         print( clubes[aux1].lista_instalaciones[aux2].lista_reservas[r].nroReserva, '/n')
 
-
-menuPrincipal()     
+ingreso("archivo.txt")
