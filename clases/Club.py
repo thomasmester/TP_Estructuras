@@ -78,8 +78,11 @@ class Club:
                 for e in empleados:
                     self.lista_empleados.append(Empleado(*e))
             ##falta convertir a objetos cada elemento de cada lista
-            
-    
+
+    def presentacion(self):
+        print("El club {} se fundo en {} y queda en {}".format(
+                self.nombre, self.anioFundacion, self.direccion))
+
     def agregarSocio(self, socio):
         esta = False
         for i in range(len(self.lista_socios)):
