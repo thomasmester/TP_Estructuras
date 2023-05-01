@@ -160,6 +160,8 @@ def registrarSocio():
     sexo=input("Ingrese el sexo del socio: ")
     edad=int(input("Ingrese la edad del socio: "))
     DNI=int(input("Ingrese el DNI del socio: "))
+    while (DNI <= 0):
+        DNI=int(input("DNI invalido. Ingrese el DNI del socio: "))
     nroSocio=int(input("Ingrese el numero de socio: "))
     correoElectronico=input("Ingrese el correo electronico del socio: ")
     nombreClub=input("Ingrese el nombre del club en el que desea registrar el socio: ")
@@ -194,12 +196,14 @@ def registrarInstalacion():
     horaApertura=input("Ingrese la hora de apertura de la instalacion: ")
     horaCiere=input("Ingrese la hora de cierre de la instalacion: ")
     codigoInstalacion=int(input("Ingrese el codigo de instalacion: "))
+    while (codigoInstalacion <= 0):
+        codigoInstalacion=int(input("Ingrese un codigo de instalacion valido: "))
     nombreClub=input("Ingrese el nombre del club en el que desea registrar la instalacion: ")
     datos=verificarExistenciaClub(nombreClub)
     while(datos[0]==False):
         nombreClub=input("Club inexistente. Ingrese el nombre del club en el que desea registrar la instalacion: ")
         datos=verificarExistenciaClub(nombreClub)
-    instalacion=Socio(nombre, descripcion, horaApertura, horaCiere, codigoInstalacion, nombreClub)
+    instalacion=Instalacion(nombre, descripcion, horaApertura, horaCiere, codigoInstalacion, nombreClub)
     clubes[datos[1]].agregarInstalacion(instalacion)
 
 def eliminarInstalacion():
@@ -226,9 +230,15 @@ def registrarEmpleado():
     sexo=input("Ingrese el sexo del empleado: ")
     edad=int(input("Ingrese la edad del empleado: "))
     DNI=int(input("Ingrese el DNI del empleado: "))
+    while (DNI <= 0):
+        DNI=int(input("DNI invalido. Ingrese el DNI del empleado: "))
     legajo=int(input("Ingrese el legajo del empleado: "))
+    while (legajo <= 0):
+        legajo=int(input("Legajo invalido. Ingrese el legajo del empleado: "))
     cargo=input("Ingrese el cargo del empleado: ")
     salario=float(input("Ingrese el salario actual del empleado"))
+    while (salario <= 0):
+        salario=float(input("Salario invalido. Ingrese el salario del empleado: "))
     nombreClub=input("Ingrese el nombre del club en el que desea registrar el empleado: ")
     datos=verificarExistenciaClub(nombreClub)
     while(datos[0]==False):
