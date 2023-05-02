@@ -6,7 +6,7 @@ from clases.Persona import Persona
 from clases.Reserva import Reserva
 from clases.Socio import Socio
 
-#c= Club('river', '1903', 'corrientes 912')
+c= Club('river', '1903', 'corrientes 912')
 clubes=[] #lista con OBJETOS club de la CLASE Club
 listaUsuarios=[]
 
@@ -14,8 +14,8 @@ def ingreso(archivo):
     print("Bienvenido. Seleccione alguna de las siguientes opciones", '\n',
           "1. Registrarse",'\n',
           "2. Iniciar sesión")
-    opcion = int(input("Ingrese la opción: "))
-    while opcion not in range(1,3):
+    opcion = input("Ingrese la opción: ")
+    while opcion not in ('1','2'):
         opcion = int(input("Opcion invalida. Ingrese la opción: "))
     usuario = input("Ingrese usuario: ")
     txt = open(archivo,"r",encoding="utf-8")
@@ -25,14 +25,14 @@ def ingreso(archivo):
         lista.append(uc)
     txt.close()
     match opcion:
-        case 1:
-            encontro=False
+        case '1':
             esta=True
             while esta==True:
+                encontro = False
                 for i in range(len(lista)):
                     if lista[i][0] == usuario:
                         encontro=True
-                if encontro == 1:
+                if encontro == True:
                     usuario = input("Este nombre de usuario ya existe, utilice otro: ")
                 else:
                     esta=False
@@ -41,7 +41,7 @@ def ingreso(archivo):
             txt.write(usuario + " " + contrasenia + '\n')
             txt.close()
             menuPrincipal()
-        case 2:
+        case '2':
             contrasenia = input("Ingrese contraseña: ")
             sesionIniciada = False
             while (sesionIniciada==False):
@@ -53,17 +53,20 @@ def ingreso(archivo):
                         usuario = input("Ingrese usuario: ")
                         contrasenia = input("Ingrese contraseña: ")
             
-'''s1 = Socio('manu', 'ejbe', 'm', '16', '45422222', '1', 'manu@ejbe.com')
+s1 = Socio('manu', 'ejbe', 'm', '16', '45422222', '1', 'manu@ejbe.com')
 s2 = Socio('salva', 'luna', 'm', '19', '91255656', '2', 'salva@luna.com')
 e = Empleado('fran', 'plamitos', 'f', '69', '699121312', '2', 'PLAYER', '0')
 c.agregarEmpleado(e)
 c.agregarSocio(s1)
 c.agregarSocio(s2)
+i = Instalacion('cancha', 'cancha de f5', '10:30', '18:00', '1')
+r = Reserva('17/12', '14:00', '2')
+i.agregarReserva(r)
 pago = Pago('1312', '13/12/2003', '1', '2')
 c.agregarPago(pago)
-c.guardarClub()'''
+c.guardarClub()
 
-#c.inicializarClub()
+c.inicializarClub()
 
 def menuPrincipal():
     termina=False
