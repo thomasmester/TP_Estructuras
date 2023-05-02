@@ -2,7 +2,7 @@ from clases.Socio import Socio
 from clases.Empleado import Empleado
 from clases.Instalacion import Instalacion
 from clases.Pago import Pago
-
+from clases.Reserva import Reserva
 def splitearLista(lista, var):
         ##recibe una lista de strings a splitear
         for i in range(len(lista)):
@@ -33,7 +33,10 @@ class Club:
                             socio.DNI + "," + str(socio.nroSocio) + "," + socio.correoElectronico + '|')
         for inst in self.lista_instalaciones:
             inst_text += (inst.nombre + "," + inst.descripcion + "," + inst.horaApertura + "," + inst.horaCierre + "," +
-                          inst.codigoInstalacion + '|')
+                          inst.codigoInstalacion)
+            for res in inst.lista_reservas:
+                inst_text += ('-' + res.fechaReserva + ',' + res.horaReserva + ',' + res.nroReserva)
+            inst_text += '|'
         for pago in self.lista_pagos:
             pagos_text += (pago.monto + "," + pago.fecha + "," +
                            str(pago.nroSocio) + "," + pago.codigoPago + '|')
@@ -61,7 +64,10 @@ class Club:
 
 
             socios = splitearLista(socios, ',')
-            inst = splitearLista(inst, ',')
+            i = splitearLista(inst, '-')
+            inst = []
+            for j in range(len(i)):
+                inst.append(splitearLista(i[j], ','))
             pagos = splitearLista(pagos, ',')
             empleados = splitearLista(empleados, ',')
             
@@ -69,15 +75,17 @@ class Club:
                 for s in socios:
                     self.lista_socios.append(Socio(*s))
             if inst[0] != ['']:
-                for i in inst:
-                    self.lista_instalaciones.append(Instalacion(*i))
+                for i in range(len(inst)):
+                    self.lista_instalaciones.append(Instalacion(*inst[i][0]))
+                    if len(inst[i]) > 1:
+                        for r in range(len(inst[i])-1):
+                            self.lista_instalaciones[i].agregarReserva(Reserva(*inst[i][r+1]))
             if pagos[0] != ['']:
                 for p in pagos:
                     self.lista_pagos.append(Pago(*p))
             if empleados[0] != ['']:
                 for e in empleados:
                     self.lista_empleados.append(Empleado(*e))
-            ##falta convertir a objetos cada elemento de cada lista
 
     def presentacion(self):
         print("El club {} se fundo en {} y queda en {}".format(

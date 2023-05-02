@@ -1,11 +1,10 @@
 class Instalacion:
-    def __init__(self, nombre, descripcion, horaApertura, horaCierre, codigoInstalacion, nombreClub):
+    def __init__(self, nombre, descripcion, horaApertura, horaCierre, codigoInstalacion):
         self.nombre = nombre
         self.descripcion = descripcion
         self.horaApertura = horaApertura
         self.horaCierre = horaCierre
         self.codigoInstalacion = codigoInstalacion
-        self.nombreClub = nombreClub
         self.lista_reservas = []
 
     def agregarReserva(self, reserva):
