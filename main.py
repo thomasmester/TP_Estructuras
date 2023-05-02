@@ -159,6 +159,8 @@ def registrarSocio():
     apellido=input("Ingrese el apellido del socio:")
     sexo=input("Ingrese el sexo del socio: ")
     edad=int(input("Ingrese la edad del socio: "))
+    while (edad <= 0):
+        edad=int(input("Edad invalida. Ingrese la edad del socio: "))
     DNI=int(input("Ingrese el DNI del socio: "))
     while (DNI <= 0):
         DNI=int(input("DNI invalido. Ingrese el DNI del socio: "))
@@ -229,6 +231,8 @@ def registrarEmpleado():
     apellido=input("Ingrese el apellido del empleado:")
     sexo=input("Ingrese el sexo del empleado: ")
     edad=int(input("Ingrese la edad del empleado: "))
+    while (edad <= 0):
+        edad=int(input("Edad invalida. Ingrese la edad del empleado: "))
     DNI=int(input("Ingrese el DNI del empleado: "))
     while (DNI <= 0):
         DNI=int(input("DNI invalido. Ingrese el DNI del empleado: "))
@@ -257,7 +261,9 @@ def consultarEmpleados():
         print(clubes[datos[1]].lista_empleados[j].nombre, '/n')
 
 def generarPago():
-    monto=input("Ingrese el monto:")
+    monto=float(input("Ingrese el monto:"))
+    while (monto <= 0):
+        monto=float(input("Monto invalido. Ingrese el monto:"))
     fecha=input("Ingrese la fecha:")
     codigoPago=int(input("Ingrese el codigo de pago: "))
     nombreClub=input("Ingrese el nombre del club en el que desea generar el pago: ")
@@ -291,6 +297,8 @@ def crearReserva():
     fechaReserva=input("Ingrese la fecha de reserva:")
     horaReserva=input("Ingrese la hora de reserva:")
     nroReserva=int(input("Ingrese el numero de reserva: "))
+    while (nroReserva <= 0):
+        nroReserva=int(input("Numero de reserva invalido. Ingrese el numero de reserva: "))
     nombreClub=input("Ingrese el nombre del club en el que desea realizar la reserva: ")
     datos1=verificarExistenciaClub(nombreClub)
     while(datos1[0]==False):
