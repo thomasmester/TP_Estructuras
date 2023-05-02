@@ -6,8 +6,9 @@ from clases.Persona import Persona
 from clases.Reserva import Reserva
 from clases.Socio import Socio
 
-c= Club('river', '1903', 'corrientes 912')
-clubes=[c] #lista con OBJETOS club de la CLASE Club
+#c= Club('river', '1903', 'corrientes 912')
+clubes=[] #lista con OBJETOS club de la CLASE Club
+listaUsuarios=[]
 
 def ingreso(archivo):
     print("Bienvenido. Seleccione alguna de las siguientes opciones", '\n',
@@ -17,19 +18,31 @@ def ingreso(archivo):
     while opcion not in range(1,3):
         opcion = int(input("Opcion invalida. Ingrese la opción: "))
     usuario = input("Ingrese usuario: ")
-    contrasenia = input("Ingrese contraseña: ")
+    txt = open(archivo,"r",encoding="utf-8")
+    lista = []
+    for linea in txt:
+        uc = linea[:-1].split(" ")
+        lista.append(uc)
+    txt.close()
     match opcion:
         case 1:
-            archivo = open(archivo,"a",encoding="utf-8")
-            archivo.write(usuario + " " + contrasenia + '\n')
-            archivo.close()
+            encontro=False
+            esta=True
+            while esta==True:
+                for i in range(len(lista)):
+                    if lista[i][0] == usuario:
+                        encontro=True
+                if encontro == 1:
+                    usuario = input("Este nombre de usuario ya existe, utilice otro: ")
+                else:
+                    esta=False
+            contrasenia = input("Ingrese contraseña: ")
+            txt = open(archivo,"a",encoding="utf-8")
+            txt.write(usuario + " " + contrasenia + '\n')
+            txt.close()
             menuPrincipal()
         case 2:
-            archivo = open(archivo,"r",encoding="utf-8")
-            lista = []
-            for linea in archivo:
-                uc = linea[:-1].split(" ")
-                lista.append(uc)
+            contrasenia = input("Ingrese contraseña: ")
             sesionIniciada = False
             while (sesionIniciada==False):
                 for i in range(len(lista)):
@@ -39,9 +52,8 @@ def ingreso(archivo):
                         print("Usuario o contraseña incorrectos. Ingrese los datos nuevamente:")
                         usuario = input("Ingrese usuario: ")
                         contrasenia = input("Ingrese contraseña: ")
-                archivo.close()
             
-s1 = Socio('manu', 'ejbe', 'm', '16', '45422222', '1', 'manu@ejbe.com')
+'''s1 = Socio('manu', 'ejbe', 'm', '16', '45422222', '1', 'manu@ejbe.com')
 s2 = Socio('salva', 'luna', 'm', '19', '91255656', '2', 'salva@luna.com')
 e = Empleado('fran', 'plamitos', 'f', '69', '699121312', '2', 'PLAYER', '0')
 c.agregarEmpleado(e)
@@ -49,9 +61,9 @@ c.agregarSocio(s1)
 c.agregarSocio(s2)
 pago = Pago('1312', '13/12/2003', '1', '2')
 c.agregarPago(pago)
-c.guardarClub()
+c.guardarClub()'''
 
-c.inicializarClub()
+#c.inicializarClub()
 
 def menuPrincipal():
     termina=False

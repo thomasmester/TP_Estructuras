@@ -3,6 +3,7 @@ from clases.Empleado import Empleado
 from clases.Instalacion import Instalacion
 from clases.Pago import Pago
 from clases.Reserva import Reserva
+
 def splitearLista(lista, var):
         ##recibe una lista de strings a splitear
         for i in range(len(lista)):
