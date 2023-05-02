@@ -16,7 +16,7 @@ def ingreso(archivo):
           "2. Iniciar sesión")
     opcion = input("Ingrese la opción: ")
     while opcion not in ('1','2'):
-        opcion = int(input("Opcion invalida. Ingrese la opción: "))
+        opcion = input("Opcion invalida. Ingrese la opción: ")
     usuario = input("Ingrese usuario: ")
     txt = open(archivo,"r",encoding="utf-8")
     lista = []
@@ -42,18 +42,18 @@ def ingreso(archivo):
             txt.close()
             menuPrincipal()
         case '2':
-            contrasenia = input("Ingrese contraseña: ")
             sesionIniciada = False
             while (sesionIniciada==False):
+                contrasenia = input("Ingrese contraseña: ")
                 for i in range(len(lista)):
                     if lista[i][0] == usuario and lista[i][1]==contrasenia:
-                        menuPrincipal()
-                    else:
-                        print("Usuario o contraseña incorrectos. Ingrese los datos nuevamente:")
-                        usuario = input("Ingrese usuario: ")
-                        contrasenia = input("Ingrese contraseña: ")
+                        sesionIniciada = True
+                if sesionIniciada == False:
+                    print("Usuario o contraseña incorrectos. Ingrese los datos nuevamente:")
+                    usuario = input("Ingrese usuario: ")
+            menuPrincipal()
             
-s1 = Socio('manu', 'ejbe', 'm', '16', '45422222', '1', 'manu@ejbe.com')
+'''s1 = Socio('manu', 'ejbe', 'm', '16', '45422222', '1', 'manu@ejbe.com')
 s2 = Socio('salva', 'luna', 'm', '19', '91255656', '2', 'salva@luna.com')
 e = Empleado('fran', 'plamitos', 'f', '69', '699121312', '2', 'PLAYER', '0')
 c.agregarEmpleado(e)
@@ -64,9 +64,9 @@ r = Reserva('17/12', '14:00', '2')
 i.agregarReserva(r)
 pago = Pago('1312', '13/12/2003', '1', '2')
 c.agregarPago(pago)
-c.guardarClub()
+c.guardarClub()'''
 
-c.inicializarClub()
+#c.inicializarClub()
 
 def menuPrincipal():
     termina=False
