@@ -6,36 +6,42 @@ from clases.Persona import Persona
 from clases.Reserva import Reserva
 from clases.Socio import Socio
 
-#c= Club('river', '1903', 'corrientes 912')
-clubes=[] #lista con OBJETOS club de la CLASE Club
+c= Club('river', '1903', 'corrientes 912')
+clubes=[c] #lista con OBJETOS club de la CLASE Club
 
 def ingreso(archivo):
-    print(" 1. Registrarse",'\n',"2. Iniciar sesión",'\n')
-    opcion = input("Ingrese la opción: ")
-    while opcion != "1" and opcion != "2":
-        opcion = input("Ingrese la opción: ")
+    print("Bienvenido. Seleccione alguna de las siguientes opciones", '\n',
+          "1. Registrarse",'\n',
+          "2. Iniciar sesión")
+    opcion = int(input("Ingrese la opción: "))
+    while opcion not in range(1,3):
+        opcion = int(input("Opcion invalida. Ingrese la opción: "))
     usuario = input("Ingrese usuario: ")
     contrasenia = input("Ingrese contraseña: ")
-    if opcion == "1":
-        archivo = open(archivo,"a",encoding="utf-8")
-        archivo.write(usuario + " " + contrasenia + '\n')
-        archivo.close()
-        menuPrincipal()
-    else:
-        archivo = open(archivo,"r",encoding="utf-8")
-        lista = []
-        for linea in archivo:
-            uc = linea[:-1].split(" ")
-            lista.append(uc)
-        for i in range(len(lista)):
-            if lista[i][0] == usuario:
-                if lista[i][1] == contrasenia:
-                    menuPrincipal()
-                else:
-                    print("Usuario o contraseña incorrectos")
-        archivo.close()
+    match opcion:
+        case 1:
+            archivo = open(archivo,"a",encoding="utf-8")
+            archivo.write(usuario + " " + contrasenia + '\n')
+            archivo.close()
+            menuPrincipal()
+        case 2:
+            archivo = open(archivo,"r",encoding="utf-8")
+            lista = []
+            for linea in archivo:
+                uc = linea[:-1].split(" ")
+                lista.append(uc)
+            sesionIniciada = False
+            while (sesionIniciada==False):
+                for i in range(len(lista)):
+                    if lista[i][0] == usuario and lista[i][1]==contrasenia:
+                        menuPrincipal()
+                    else:
+                        print("Usuario o contraseña incorrectos. Ingrese los datos nuevamente:")
+                        usuario = input("Ingrese usuario: ")
+                        contrasenia = input("Ingrese contraseña: ")
+                archivo.close()
             
-'''s1 = Socio('manu', 'ejbe', 'm', '16', '45422222', '1', 'manu@ejbe.com')
+s1 = Socio('manu', 'ejbe', 'm', '16', '45422222', '1', 'manu@ejbe.com')
 s2 = Socio('salva', 'luna', 'm', '19', '91255656', '2', 'salva@luna.com')
 e = Empleado('fran', 'plamitos', 'f', '69', '699121312', '2', 'PLAYER', '0')
 c.agregarEmpleado(e)
@@ -43,9 +49,9 @@ c.agregarSocio(s1)
 c.agregarSocio(s2)
 pago = Pago('1312', '13/12/2003', '1', '2')
 c.agregarPago(pago)
-c.guardarClub()'''
+c.guardarClub()
 
-#c.inicializarClub()
+c.inicializarClub()
 
 def menuPrincipal():
     termina=False
@@ -190,7 +196,7 @@ def consultarSocios():
         nombreClub=input("Nombre de club inexistente. Ingrese el club del que quiere consultar los socios: ")
         datos=verificarExistenciaClub(nombreClub)
     for j in range(len(clubes[datos[1]].lista_socios)):
-        print (clubes[datos[1]].lista_socios[j].nombre, '/n')
+        print (clubes[datos[1]].lista_socios[j].nombre, '\n')
 
 def registrarInstalacion():
     nombre=input("Ingrese el nombre de la instalacion:")
@@ -224,7 +230,7 @@ def consultarInstalaciones():
         nombreClub=input('Nombre del club inexistente. Ingrese el club del que quiere consultar las instalaciones: ')
         datos=verificarExistenciaClub(nombreClub)
     for j in range(len(clubes[datos[1]].lista_instalaciones)):
-        print(clubes[datos[1]].lista_instalaciones[j].nombre, '/n')
+        print(clubes[datos[1]].lista_instalaciones[j].nombre, '\n')
 
 def registrarEmpleado():
     nombre=input("Ingrese el nombre del empleado:")
@@ -258,7 +264,7 @@ def consultarEmpleados():
         nombreClub=input('Nombre del club inexistente. Ingrese el club del que quiere consultar los empleados: ')
         datos=verificarExistenciaClub(nombreClub)
     for j in range(len(clubes[datos[1]].lista_empleados)):
-        print(clubes[datos[1]].lista_empleados[j].nombre, '/n')
+        print(clubes[datos[1]].lista_empleados[j].nombre, '\n')
 
 def generarPago():
     monto=float(input("Ingrese el monto:"))
@@ -291,7 +297,7 @@ def consultarPagos():
         nombreClub=input('Nombre del club inexistente. Ingrese el club del que quiere consultar los pagos: ')
         datos=verificarExistenciaClub(nombreClub)
     for j in range(len(clubes[datos[1]].lista_pagos)):
-        print(clubes[datos[1]].lista_pagos[j].monto, '/n')
+        print(clubes[datos[1]].lista_pagos[j].monto, '\n')
 
 def crearReserva():
     fechaReserva=input("Ingrese la fecha de reserva:")
@@ -324,6 +330,6 @@ def consultarReservas():
         codigo=input('Codigo de reserva inexistente. Ingrese el codigo de la instalacion de la cual desea consultar las reservas: ')
         datos2=verificarExistenciaInstalacion(codigo, datos1[1])
     for r in range(len(clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas)):
-        print( clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].nroReserva, '/n')
+        print( clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].nroReserva, '\n')
 
 ingreso("archivo.txt")
