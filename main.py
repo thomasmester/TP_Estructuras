@@ -8,29 +8,26 @@ from clases.Socio import Socio
 
 c= Club('river', '1903', 'corrientes 912')
 clubes=[] #lista con OBJETOS club de la CLASE Club
-listaUsuarios=[]
 
 def ingreso(archivo):
     print("Bienvenido. Seleccione alguna de las siguientes opciones", '\n',
           "1. Registrarse",'\n',
           "2. Iniciar sesión")
-    opcion = input("Ingrese la opción: ")
-    while opcion not in ('1','2'):
-        opcion = input("Opcion invalida. Ingrese la opción: ")
+    opcion = verificarNumeroInput("Ingrese la opción: ", "Opcion invalida. Ingrese la opcion que desea elegir: ")
     usuario = input("Ingrese usuario: ")
     txt = open(archivo,"r",encoding="utf-8")
-    lista = []
+    matrizUsuCon = []
     for linea in txt:
         uc = linea[:-1].split(" ")
-        lista.append(uc)
+        matrizUsuCon.append(uc)
     txt.close()
     match opcion:
-        case '1':
+        case 1:
             esta=True
             while esta==True:
                 encontro = False
-                for i in range(len(lista)):
-                    if lista[i][0] == usuario:
+                for i in range(len(matrizUsuCon)):
+                    if matrizUsuCon[i][0] == usuario:
                         encontro=True
                 if encontro == True:
                     usuario = input("Este nombre de usuario ya existe, utilice otro: ")
@@ -41,12 +38,12 @@ def ingreso(archivo):
             txt.write(usuario + " " + contrasenia + '\n')
             txt.close()
             menuPrincipal()
-        case '2':
+        case 2:
             sesionIniciada = False
             while (sesionIniciada==False):
                 contrasenia = input("Ingrese contraseña: ")
-                for i in range(len(lista)):
-                    if lista[i][0] == usuario and lista[i][1]==contrasenia:
+                for i in range(len(matrizUsuCon)):
+                    if matrizUsuCon[i][0] == usuario and matrizUsuCon[i][1]==contrasenia:
                         sesionIniciada = True
                 if sesionIniciada == False:
                     print("Usuario o contraseña incorrectos. Ingrese los datos nuevamente:")
@@ -73,7 +70,6 @@ def menuPrincipal():
     for c in clubes:
         c.incializarClub()
     termina=False
-    listaOpciones=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
     while (not termina):
         print("Menu principal", '\n', 
           "1: Registrar club", '\n',
@@ -92,42 +88,43 @@ def menuPrincipal():
           "14: Crear reserva en una instalacion", '\n', 
           "15: Consultar reservas en una instalacion de un club"
           )
-        opcionElegida=input("Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ")
-        while opcionElegida not in listaOpciones:
-            opcionElegida=input("La opcion elegida no es valida. Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finaliar:")
+        opcionElegida=verificarNumeroInput("Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ", "Opcion invalida. Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ")
+        while opcionElegida not in range(0,16):
+            print("Opcion invalida")
+            opcionElegida=verificarNumeroInput("Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ", "Opcion invalida. Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ")
         match opcionElegida:
-            case '0':
+            case 0:
                 finalizarPrograma()
                 termina=True
-            case '1':
+            case 1:
                 registrarClub()
-            case '2':
+            case 2:
                 consultarInfoClub()
-            case '3':
+            case 3:
                 registrarSocio()
-            case '4':
+            case 4:
                 eliminarSocio()
-            case '5':
+            case 5:
                 consultarSocios()
-            case '6':
+            case 6:
                 registrarInstalacion()
-            case '7':
+            case 7:
                 eliminarInstalacion()
-            case '8':
+            case 8:
                 consultarInstalaciones()
-            case '9':
+            case 9:
                 registrarEmpleado()
-            case '10':
+            case 10:
                 consultarEmpleados()
-            case '11':
+            case 11:
                 generarPago()
-            case '12':
+            case 12:
                 eliminarPago()
-            case '13':
+            case 13:
                 consultarPagos()
-            case '14':
+            case 14:
                 crearReserva()
-            case '15':
+            case 15:
                 consultarReservas()
 
 def verificarExistenciaClub(nombreClub):
