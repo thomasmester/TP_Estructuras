@@ -30,19 +30,19 @@ class Club:
         pagos_text = ""
         empleados_text = ""
         for socio in self.lista_socios:
-            socios_text += (socio.nombre + "," + socio.apellido + "," + socio.sexo + "," + socio.edad + "," +
-                            socio.DNI + "," + str(socio.nroSocio) + "," + socio.correoElectronico + '|')
+            socios_text += (socio.nombre + "," + socio.apellido + "," + socio.sexo + "," + str(socio.edad) + "," +
+                            str(socio.DNI) + "," + str(socio.nroSocio) + "," + socio.correoElectronico + '|')
         for inst in self.lista_instalaciones:
-            inst_text += (inst.nombre + "," + inst.descripcion + "," + inst.horaApertura + "," + inst.horaCierre + "," +
-                          inst.codigoInstalacion)
+            inst_text += (inst.nombre + "," + inst.descripcion + "," + str(inst.horaApertura) + "," + str(inst.horaCierre) + "," +
+                          str(inst.codigoInstalacion))
             for res in inst.lista_reservas:
-                inst_text += ('-' + res.fechaReserva + ',' + res.horaReserva + ',' + res.nroReserva)
+                inst_text += ('-' + str(res.fechaReserva) + ',' + str(res.horaReserva) + ',' + str(res.nroReserva))
             inst_text += '|'
         for pago in self.lista_pagos:
-            pagos_text += (pago.monto + "," + pago.fecha + "," +
-                           str(pago.nroSocio) + "," + pago.codigoPago + '|')
+            pagos_text += (str(pago.monto) + "," + str(pago.fecha) + "," +
+                           str(pago.nroSocio) + "," + str(pago.codigoPago) + '|')
         for empleado in self.lista_empleados:
-            empleados_text += (empleado.nombre + ',' +empleado.apellido + ',' + empleado.sexo + ',' + empleado.edad + ',' + empleado.DNI + ',' + empleado.legajo + ',' + empleado.cargo + ',' + empleado.salario + '|')
+            empleados_text += (empleado.nombre + ',' +empleado.apellido + ',' + empleado.sexo + ',' + str(empleado.edad) + ',' + str(empleado.DNI) + ',' + str(empleado.legajo) + ',' + empleado.cargo + ',' + str(empleado.salario) + '|')
 
         total_text = (socios_text[:-1] + '~'+
                       inst_text[:-1] + '~' + pagos_text[:-1] + '~' + empleados_text[:-1])
@@ -62,7 +62,6 @@ class Club:
             inst = instRaw.split('|')
             pagos = pagosRaw.split('|')
             empleados = empleadosRaw.split('|')
-
 
             socios = splitearLista(socios, ',')
             i = splitearLista(inst, '-')

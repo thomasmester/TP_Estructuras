@@ -1,1 +1,1 @@
-manu,ejbe,m,16,45422222,1,manu@ejbe.com|salva,luna,m,19,91255656,2,salva@luna.com~~1312,13/12/2003,1,2~fran,plamitos,f,69,699121312,2,PLAYER,0
+manu,ejbe,M,20,4455566,1,manu@ejbe.com~~~
