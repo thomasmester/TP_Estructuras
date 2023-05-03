@@ -1,4 +1,4 @@
-from clases.Club import Club
+from clases.Club import Club, splitearLista
 from clases.Empleado import Empleado
 from clases.Instalacion import Instalacion
 from clases.Pago import Pago
@@ -69,6 +69,9 @@ c.guardarClub()'''
 #c.inicializarClub()
 
 def menuPrincipal():
+    inicializarListaClubes()
+    for c in clubes:
+        c.incializarClub()
     termina=False
     listaOpciones=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
     while (not termina):
@@ -137,6 +140,21 @@ def verificarExistenciaClub(nombreClub):
     datos=[existe, aux]
     return datos
 
+def guardarListaClubes():
+    club_text = ''
+    for c in clubes:
+        club_text += c.nombre + ',' + c.anioFundacion + ',' + c.direccion + '|'
+    with open("clubes.txt", "w") as f:
+            f.write(club_text)
+
+def inicializarListaClubes():
+    with open('clubes.txt', 'r') as d:
+        text = d.read()
+        clubes = text.split('|')
+        clubes = splitearLista(clubes, ',')
+        for c in clubes:
+            clubes.append(Club(*c))
+
 def verificarExistenciaInstalacion(codigo, indiceClub):
     existe=False
     aux=-1
@@ -169,6 +187,9 @@ def verificarInputVacio (texto1, texto2):
 def finalizarPrograma():
     print('Sesión cerrada, programa finalizado')
     ingreso("archivo.txt")
+    for c in clubes:
+        c.guardarClub()
+    guardarListaClubes()
 
 def registrarClub():
     nombre=verificarInputVacio("Ingrese el nombre del club: ", "Ingrese un nombre de club valido: ")
