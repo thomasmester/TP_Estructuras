@@ -6,7 +6,7 @@ from clases.Persona import Persona
 from clases.Reserva import Reserva
 from clases.Socio import Socio
 
-c= Club('river', '1903', 'corrientes 912')
+#c= Club('river', '1903', 'corrientes 912')
 clubes=[] #lista con OBJETOS club de la CLASE Club
 
 def ingreso(archivo):
@@ -14,6 +14,9 @@ def ingreso(archivo):
           "1. Registrarse",'\n',
           "2. Iniciar sesión")
     opcion = verificarNumeroInput("Ingrese la opción: ", "Opcion invalida. Ingrese la opcion que desea elegir: ")
+    while opcion not in range(1,3):
+        print("Opcion invalida")
+        opcion = verificarNumeroInput("Ingrese la opción: ", "Opcion invalida. Ingrese la opcion que desea elegir: ")
     usuario = input("Ingrese usuario: ")
     txt = open(archivo,"r",encoding="utf-8")
     matrizUsuCon = []
@@ -170,7 +173,7 @@ def verificarNumeroInput (texto1, texto2):
             if varInt > 0:
                 break
             else:
-                print("El número debe ser mayor que 0. Por favor, inténtelo de nuevo.")
+                print("Ingreso invalido. Por favor, inténtelo de nuevo.")
         except ValueError:
             print(texto2)
     return varInt
