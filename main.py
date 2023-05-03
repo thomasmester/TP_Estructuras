@@ -297,14 +297,14 @@ def consultarInstalaciones():
         print(clubes[datos[1]].lista_instalaciones[j].nombre, '\n')
 
 def registrarEmpleado():
-    nombre=verificarInputSinNumeros("Ingrese el nombre del empleado:", "Ingrese un nombre valido: ")
-    apellido=verificarInputSinNumeros("Ingrese el apellido del empleado:", "Ingrese un apellido valido: ")
+    nombre=verificarInputSinNumeros("Ingrese el nombre del empleado: ", "Ingrese un nombre valido: ")
+    apellido=verificarInputSinNumeros("Ingrese el apellido del empleado: ", "Ingrese un apellido valido: ")
     sexo=verificarInputSinNumeros("Ingrese el sexo del empleado: ", "Ingrese un sexo valido: ")
     edadInt=verificarNumeroInput("Ingrese la edad del empleado: ", "Edad invalida. Ingrese la edad del empleado: ")
     dniInt=verificarNumeroInput("Ingrese el DNI del empleado: ", "DNI invalido. Ingrese el DNI del empleado: ")
     legajoInt=verificarNumeroInput("Ingrese el numero de legajo del empleado: ", "Numero de legajo invalido. Ingrese el numero de legajo del empleado: ")
     cargo=verificarInputSinNumeros("Ingrese el cargo del empleado: ", "Ingrese un cargo valido: ")
-    salarioInt=verificarNumeroInput("Ingrese el salario actual del empleado", "Salario invalido. Ingrese el salario del empleado: ")
+    salarioInt=verificarNumeroInput("Ingrese el salario actual del empleado: ", "Salario invalido. Ingrese el salario del empleado: ")
     nombreClub=input("Ingrese el nombre del club en el que desea registrar el empleado: ")
     datos=verificarExistenciaClub(nombreClub)
     while(datos[0]==False):
