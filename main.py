@@ -24,7 +24,7 @@ def ingreso(archivo):
     txt = open(archivo,"r",encoding="utf-8")
     matrizUsuCon = []
     for linea in txt:
-        uc = linea[:-1].split(" ")
+        uc = linea[:-1].split(",")
         matrizUsuCon.append(uc)
     txt.close()
     match opcion:
@@ -41,7 +41,7 @@ def ingreso(archivo):
                     esta=False
             contrasenia = input("Ingrese contraseña: ")
             txt = open(archivo,"a",encoding="utf-8")
-            txt.write(usuario + " " + contrasenia + '\n')
+            txt.write(usuario + "," + contrasenia + '\n')
             txt.close()
             menuPrincipal()
         case 2:
