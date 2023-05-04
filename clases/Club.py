@@ -3,6 +3,7 @@ from clases.Empleado import Empleado
 from clases.Instalacion import Instalacion
 from clases.Pago import Pago
 from clases.Reserva import Reserva
+import datetime
 
 def splitearLista(lista, var):
         ##recibe una lista de strings a splitear
@@ -36,10 +37,10 @@ class Club:
             inst_text += (inst.nombre + "," + inst.descripcion + "," + str(inst.horaApertura) + "," + str(inst.horaCierre) + "," +
                           str(inst.codigoInstalacion))
             for res in inst.lista_reservas:
-                inst_text += ('-' + str(res.fechaReserva) + ',' + str(res.horaReserva) + ',' + str(res.nroReserva))
+                inst_text += ('-' + str(res.fechaReserva.year) + ',' + str(res.fechaReserva.month) + ',' + str(res.fechaReserva.day) + ',' + str(res.horaReserva) + ',' + str(res.nroReserva))
             inst_text += '|'
         for pago in self.lista_pagos:
-            pagos_text += (str(pago.monto) + "," + str(pago.fecha) + "," +
+            pagos_text += (str(pago.monto) + "," + str(pago.fecha.year) + ',' + str(pago.fecha.month) + ',' + str(pago.fecha.day) + ','+ "," +
                            str(pago.nroSocio) + "," + str(pago.codigoPago) + '|')
         for empleado in self.lista_empleados:
             empleados_text += (empleado.nombre + ',' +empleado.apellido + ',' + empleado.sexo + ',' + str(empleado.edad) + ',' + str(empleado.DNI) + ',' + str(empleado.legajo) + ',' + empleado.cargo + ',' + str(empleado.salario) + '|')
@@ -73,19 +74,21 @@ class Club:
             
             if socios[0] != ['']:
                 for s in socios:
-                    self.lista_socios.append(Socio(*s))
+                    self.lista_socios.append(Socio(s[0], s[1], s[2], int(s[3]), int(s[4]), int(s[5]), s[6]))
             if inst[0] != [['']]:
                 for i in range(len(inst)):
-                    self.lista_instalaciones.append(Instalacion(*inst[i][0]))
+                    self.lista_instalaciones.append(Instalacion(inst[i][0][1], inst[i][0][2], inst[i][0][3], inst[i][0][4], int(inst[i][0][5]) ))
                     if len(inst[i]) > 1:
                         for r in range(len(inst[i])-1):
-                            self.lista_instalaciones[i].agregarReserva(Reserva(*inst[i][r+1]))
+                            rdate = datetime.date(int(r[0]), int(r[1]), int(r[2]))
+                            self.lista_instalaciones[i].agregarReserva(Reserva(rdate, inst[i][r+1][1], inst[i][r+1][2]))
             if pagos[0] != ['']:
                 for p in pagos:
-                    self.lista_pagos.append(Pago(*p))
+                    d = datetime.date(int(p[1]), int(p[2]), int(p[3]))
+                    self.lista_pagos.append(Pago(p[0], d, p[4], p[5]))
             if empleados[0] != ['']:
                 for e in empleados:
-                    self.lista_empleados.append(Empleado(*e))
+                    self.lista_empleados.append(Empleado(e[0], e[1], e[2], int(e[3]),int(e[4]),int(e[5]), e[6], e[7]))
 
     def presentacion(self):
         print("El club {} se fundo en {} y queda en {}".format(
@@ -121,7 +124,7 @@ class Club:
         existeSocio = False
         pagoYaExiste = False
         for s in self.lista_socios:
-            if str(pago.nroSocio) == s.nroSocio:
+            if pago.nroSocio == s.nroSocio:
                 existeSocio = True
         for i in range(len(self.lista_pagos)):
             if pago.codigoPago == self.lista_pagos[i].codigoPago:
@@ -131,7 +134,7 @@ class Club:
             print("El pago {} ha sido agregado con éxito al club.".format(
                 pago.codigoPago))
         else:
-            print("Ya existe un pago con el codigo de pago {}".format(pago.codigoPago))
+            print("Ya existe un pago con el codigo de pago {} o no hay un socio con el número {} ".format(pago.codigoPago, pago.nroSocio))
 
     def eliminarPago(self, codigoPago):
         esta = False

@@ -1,1 +1,1 @@
-manu,ejbe,M,20,4455566,1,manu@ejbe.com~~~
+manu,ejbe,M,20,4455566,1,manu@ejbe.com~canchita,o futebol,08:00,20:00,1-2020,8,17,05:00,1~912000,2020,12,17,,1,1~

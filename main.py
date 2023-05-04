@@ -206,7 +206,9 @@ def verificarInputClub (texto1, texto2):
     return data
 
 def validarFecha(f):
-    esValido = True if (f[0] + f[1] + f[3] + f[4] + f[6] + f[7] + f[8] + f[9]).isdigit() and (f[2] + f[5]) == '--' else False 
+    esValido = False
+    if len(f) == 10:
+        esValido = True if (f[0] + f[1] + f[3] + f[4] + f[6] + f[7] + f[8] + f[9]).isdigit() and (f[2] + f[5]) == '--' else False 
     return esValido
 
 def finalizarPrograma():
@@ -339,6 +341,16 @@ def generarPago():
     ano=int(fecha[6:])
     mes=int(fecha[3:5])
     dia=int(fecha[0:2])
+    while(mes not in range(1,13) or dia not in range(1,32) or ano<0):
+        print('Fecha invalida')
+        fecha=verificarInputConNumeros("Ingrese la fecha con el formato DD-MM-YYYY: ", "Ingrese una fecha valida siguiendo el formato DD-MM-YYYY: ")
+        esValido=validarFecha(fecha)
+        while esValido==False:
+            fecha=verificarInputConNumeros("Formato invalido. Ingrese la fecha con el formato DD-MM-YYYY: ", "Ingrese una fecha valida siguiendo el formato DD-MM-YYYY: ")
+            esValido=validarFecha(fecha)
+        ano=int(fecha[6:])
+        mes=int(fecha[3:5])
+        dia=int(fecha[0:2])
     fechadt=date(ano, mes, dia)
     codigoPagoInt=verificarNumeroInput("Ingrese el codigo de pago: ", "Codigo de pago invalido. Ingrese el codigo de pago: ")
     nombreClub=input("Ingrese el nombre del club en el que desea generar el pago: ")
@@ -377,6 +389,16 @@ def crearReserva():
     ano=int(fecha[6:])
     mes=int(fecha[3:5])
     dia=int(fecha[0:2])
+    while(mes not in range(1,13) or dia not in range(1,32) or ano<0):
+        print('Fecha invalida')
+        fecha=verificarInputConNumeros("Ingrese la fecha con el formato DD-MM-YYYY: ", "Ingrese una fecha valida siguiendo el formato DD-MM-YYYY: ")
+        esValido=validarFecha(fecha)
+        while esValido==False:
+            fecha=verificarInputConNumeros("Formato invalido. Ingrese la fecha con el formato DD-MM-YYYY: ", "Ingrese una fecha valida siguiendo el formato DD-MM-YYYY: ")
+            esValido=validarFecha(fecha)
+        ano=int(fecha[6:])
+        mes=int(fecha[3:5])
+        dia=int(fecha[0:2])
     fechadt=date(ano, mes, dia)
     horaReserva=verificarInputConNumeros("Ingrese la hora de reserva:", "Ingrese una hora valida: ")
     nroReservaInt=verificarNumeroInput("Ingrese el numero de reserva: ", "Numero de reserva invalido. Ingrese el numero de reserva: ")
