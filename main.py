@@ -6,6 +6,9 @@ from clases.Persona import Persona
 from clases.Reserva import Reserva
 from clases.Socio import Socio
 
+from datetime import date
+import datetime
+
 #c= Club('river', '1903', 'corrientes 912')
 clubes=[] #lista con OBJETOS club de la CLASE Club
 
@@ -262,7 +265,7 @@ def consultarSocios():
         nombreClub=input("Nombre de club inexistente. Ingrese el club del que quiere consultar los socios: ")
         datos=verificarExistenciaClub(nombreClub)
     for j in range(len(clubes[datos[1]].lista_socios)):
-        print (clubes[datos[1]].lista_socios[j].nombre, clubes[datos[1]].lista_socios[j].apellido, '\n')
+        print ("Nombre:",clubes[datos[1]].lista_socios[j].nombre, ", Apellido:",clubes[datos[1]].lista_socios[j].apellido, ", DNI:",clubes[datos[1]].lista_socios[j].DNI, ", Edad:",clubes[datos[1]].lista_socios[j].edad,'\n')
 
 def registrarInstalacion():
     nombre=verificarInputSinNumeros("Ingrese el nombre de la instalacion: ", "Ingrese un nombre valido: ")
@@ -294,7 +297,7 @@ def consultarInstalaciones():
         nombreClub=input('Nombre del club inexistente. Ingrese el club del que quiere consultar las instalaciones: ')
         datos=verificarExistenciaClub(nombreClub)
     for j in range(len(clubes[datos[1]].lista_instalaciones)):
-        print(clubes[datos[1]].lista_instalaciones[j].nombre, '\n')
+        print("Nombre:",clubes[datos[1]].lista_instalaciones[j].nombre, ", Descripcion:",clubes[datos[1]].lista_instalaciones[j].descripcion, ", Codigo:",clubes[datos[1]].lista_instalaciones[j].codigoInstalacion,'\n')
 
 def registrarEmpleado():
     nombre=verificarInputSinNumeros("Ingrese el nombre del empleado: ", "Ingrese un nombre valido: ")
@@ -314,17 +317,29 @@ def registrarEmpleado():
     clubes[datos[1]].agregarEmpleado(empleado)
 
 def consultarEmpleados():
-    nombreClub=input('Ingrese el club del que desea consultar los empleados')
+    nombreClub=input('Ingrese el club del que desea consultar los empleados: ')
     datos=verificarExistenciaClub(nombreClub)
     while (datos[0] == False):
         nombreClub=input('Nombre del club inexistente. Ingrese el club del que quiere consultar los empleados: ')
         datos=verificarExistenciaClub(nombreClub)
     for j in range(len(clubes[datos[1]].lista_empleados)):
-        print(clubes[datos[1]].lista_empleados[j].nombre, '\n')
+        print("Nombre:",clubes[datos[1]].lista_empleados[j].nombre, ", Apellido:",clubes[datos[1]].lista_empleados[j].apellido, ", Cargo:",clubes[datos[1]].lista_empleados[j].cargo,'\n')
+
+def validarFecha(f):
+    esValido = True if (f[0] + f[1] + f[3] + f[4] + f[6] + f[7] + f[8] + f[9]).isdigit() and (f[2] + f[5]) == '--' else False 
+    return esValido
 
 def generarPago():
     montoInt=verificarNumeroInput("Ingrese el monto:", "Monto invalido. Ingrese el monto:")
-    fecha=verificarInputConNumeros("Ingrese la fecha:", "Ingrese una fecha valida: ")
+    fecha=verificarInputConNumeros("Ingrese la fecha con el formato DD-MM-YYYY: ", "Ingrese una fecha valida siguiendo el formato DD-MM-YYYY: ")
+    esValido=validarFecha(fecha)
+    while esValido==False:
+        fecha=verificarInputConNumeros("Formato invalido. Ingrese la fecha con el formato DD-MM-YYYY: ", "Ingrese una fecha valida siguiendo el formato DD-MM-YYYY: ")
+        esValido=validarFecha(fecha)
+    ano=int(fecha[6:])
+    mes=int(fecha[3:5])
+    dia=int(fecha[0:2])
+    fechadt=date(ano, mes, dia)
     codigoPagoInt=verificarNumeroInput("Ingrese el codigo de pago: ", "Codigo de pago invalido. Ingrese el codigo de pago: ")
     nombreClub=input("Ingrese el nombre del club en el que desea generar el pago: ")
     datos=verificarExistenciaClub(nombreClub)
@@ -332,7 +347,7 @@ def generarPago():
         nombreClub=input("Club inexistente. Ingrese el nombre del club en el que desea generar el pago: ")
         datos=verificarExistenciaClub(nombreClub)
     nroSocioInt=verificarNumeroInput("Ingrese el numero de socio: ", "Numero de socio invalido. Ingrese el numero de socio: ")
-    pago=Pago(montoInt, fecha, nroSocioInt, codigoPagoInt)
+    pago=Pago(montoInt, fechadt, nroSocioInt, codigoPagoInt)
     clubes[datos[1]].agregarPago(pago)
 
 def eliminarPago():
@@ -351,7 +366,7 @@ def consultarPagos():
         nombreClub=input('Nombre del club inexistente. Ingrese el club del que quiere consultar los pagos: ')
         datos=verificarExistenciaClub(nombreClub)
     for j in range(len(clubes[datos[1]].lista_pagos)):
-        print(clubes[datos[1]].lista_pagos[j].monto, '\n')
+        print("Fecha:", clubes[datos[1]].lista_pagos[j].fecha, ", Monto:", clubes[datos[1]].lista_pagos[j].monto, ", Numero de socio: ", clubes[datos[1]].lista_pagos[j].nroSocio,'\n')
 
 def crearReserva():
     fechaReserva=verificarInputConNumeros("Ingrese la fecha de reserva: ", "Ingrese una fecha valida: ")
@@ -384,6 +399,6 @@ def consultarReservas():
         codigoInstalacionInt=verificarNumeroInput("Ingrese el codigo de la instalacion que desea consultar las reservas: ", "Codigo invalido. Ingrese el codigo de la instalacion que desea consultar las reservas: ")
         datos2=verificarExistenciaInstalacion(codigoInstalacionInt, datos1[1])
     for r in range(len(clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas)):
-        print( clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].nroReserva, '\n')
+        print("Fecha:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].fecha, ", Hora:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].hora,", Numero de reserva:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].nroReserva,'\n')
 
 ingreso("archivo.txt")

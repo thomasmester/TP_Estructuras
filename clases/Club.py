@@ -74,7 +74,7 @@ class Club:
             if socios[0] != ['']:
                 for s in socios:
                     self.lista_socios.append(Socio(*s))
-            if inst[0] != ['']:
+            if inst[0] != [['']]:
                 for i in range(len(inst)):
                     self.lista_instalaciones.append(Instalacion(*inst[i][0]))
                     if len(inst[i]) > 1:
@@ -121,12 +121,11 @@ class Club:
         existeSocio = False
         pagoYaExiste = False
         for s in self.lista_socios:
-            if pago.nroSocio == s.nroSocio:
+            if str(pago.nroSocio) == s.nroSocio:
                 existeSocio = True
         for i in range(len(self.lista_pagos)):
             if pago.codigoPago == self.lista_pagos[i].codigoPago:
                 pagoYaExiste = True
-        
         if not pagoYaExiste and existeSocio:
             self.lista_pagos.append(pago)
             print("El pago {} ha sido agregado con éxito al club.".format(
