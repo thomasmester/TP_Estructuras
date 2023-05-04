@@ -5,9 +5,10 @@ from clases.Pago import Pago
 from clases.Persona import Persona
 from clases.Reserva import Reserva
 from clases.Socio import Socio
-
+import matplotlib.pyplot as plt
 from datetime import date
 import datetime
+import matplotlib.pyplot as plt
 
 #c= Club('river', '1903', 'corrientes 912')
 clubes=[] #lista con OBJETOS club de la CLASE Club
@@ -81,10 +82,12 @@ def menuPrincipal():
           "12: Eliminar pago en un club", '\n',
           "13: Consultar pagos de un club", '\n',
           "14: Crear reserva en una instalacion", '\n', 
-          "15: Consultar reservas en una instalacion de un club"
+          "15: Consultar reservas en una instalacion de un club", '\n',
+          "16: Ver un grafico de los socios divididos por rango etario de un club"
+
           )
         opcionElegida=verificarOpcionMenu("Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ", "Opcion invalida. Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ")
-        while opcionElegida not in range(16):
+        while opcionElegida not in range(17):
             print("Opcion invalida")
             opcionElegida=verificarOpcionMenu("Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ", "Opcion invalida. Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ")
         match opcionElegida:
@@ -120,6 +123,10 @@ def menuPrincipal():
                 crearReserva()
             case 15:
                 consultarReservas()
+            case 16:
+                graficoEdades()
+
+
 
 def verificarExistenciaClub(nombreClub):
     existe=False
@@ -210,6 +217,29 @@ def validarFecha(f):
     if len(f) == 10:
         esValido = True if (f[0] + f[1] + f[3] + f[4] + f[6] + f[7] + f[8] + f[9]).isdigit() and (f[2] + f[5]) == '--' else False 
     return esValido
+
+def clubGrafico():
+        nombreClub=input("Ingrese el nombre del club que quiere consultar informacion: ")
+        datos=verificarExistenciaClub(nombreClub)
+        while(datos[0]==False):
+            nombreClub=input("Ese club no existe. Ingrese el nombre del club que quiere consultar informacion: ")
+            datos=verificarExistenciaClub(nombreClub)
+        for socio in clubes[datos[1]].lista_socios:
+            clubes[datos[1]].agregaEdad(socio.edad)
+        clubes[datos[1]].clasifica()
+        return clubes[datos[1]].clasificacion
+
+def graficoEdades():
+    clasificacion = clubGrafico()
+    rangos = ["1-18","18-60","+60"]
+    cantidad = []
+    for i in clasificacion:
+        cantidad.append(i)
+    plt.title("Socios por rango etario")
+    plt.xlabel("Rangos",loc = "right")
+    plt.ylabel("Cantidad")
+    plt.bar(rangos,cantidad,color="blue",width=0.5)
+    return plt.show()
 
 def finalizarPrograma():
     print('Sesión cerrada, programa finalizado')
@@ -432,3 +462,5 @@ def consultarReservas():
         print("Fecha:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].fecha, ", Hora:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].hora,", Numero de reserva:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].nroReserva,'\n')
 
 ingreso("archivo.txt")
+
+

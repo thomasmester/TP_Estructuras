@@ -4,6 +4,7 @@ from clases.Instalacion import Instalacion
 from clases.Pago import Pago
 from clases.Reserva import Reserva
 import datetime
+from array import array
 
 def splitearLista(lista, var):
         ##recibe una lista de strings a splitear
@@ -24,6 +25,29 @@ class Club:
         self.lista_instalaciones = []
         self.lista_pagos = []
         self.lista_empleados = []
+        
+        self.edades = array("H",[])
+        self.clasificacion = array("H",[])
+
+    def agregaEdad(self,edad):
+        self.edades.append(edad)
+    
+    def clasifica(self):
+        menores = 0
+        adultos = 0
+        mayores = 0
+        for edad in self.edades:
+            if 1 <= int(edad) < 18:
+                menores += 1
+            if 18 <= int(edad) < 60:
+                adultos += 1
+            if int(edad) >= 60:
+                mayores += 1
+
+        self.clasificacion.extend([menores,adultos,mayores])
+        return self.clasificacion
+    
+    
 
     def guardarClub(self):
         socios_text = ""
@@ -77,10 +101,10 @@ class Club:
                     self.lista_socios.append(Socio(s[0], s[1], s[2], int(s[3]), int(s[4]), int(s[5]), s[6]))
             if inst[0] != [['']]:
                 for i in range(len(inst)):
-                    self.lista_instalaciones.append(Instalacion(inst[i][0][1], inst[i][0][2], inst[i][0][3], inst[i][0][4], int(inst[i][0][5]) ))
+                    self.lista_instalaciones.append(Instalacion(inst[i][0][0], inst[i][0][1], inst[i][0][2], inst[i][0][3], int(inst[i][0][4]) ))
                     if len(inst[i]) > 1:
                         for r in range(len(inst[i])-1):
-                            rdate = datetime.date(int(r[0]), int(r[1]), int(r[2]))
+                            rdate = datetime.date(int(inst[i][r+1][0]), int(inst[i][r+1][1]), int(inst[i][r+1][2]))
                             self.lista_instalaciones[i].agregarReserva(Reserva(rdate, inst[i][r+1][1], inst[i][r+1][2]))
             if pagos[0] != ['']:
                 for p in pagos:
