@@ -458,7 +458,7 @@ def consultarReservas():
         codigoInstalacionInt=verificarNumeroInput("Ingrese el codigo de la instalacion que desea consultar las reservas: ", "Codigo invalido. Ingrese el codigo de la instalacion que desea consultar las reservas: ")
         datos2=verificarExistenciaInstalacion(codigoInstalacionInt, datos1[1])
     for r in range(len(clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas)):
-        print("Fecha:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].fecha, ", Hora:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].hora,", Numero de reserva:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].nroReserva,'\n')
+        print("Fecha:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].fechaReserva, ", Hora:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].horaReserva,", Numero de reserva:", clubes[datos1[1]].lista_instalaciones[datos2[1]].lista_reservas[r].nroReserva,'\n')
 
 ingreso("archivo.txt")
 
