@@ -205,6 +205,10 @@ def verificarInputClub (texto1, texto2):
         data=input(texto2)
     return data
 
+def validarFecha(f):
+    esValido = True if (f[0] + f[1] + f[3] + f[4] + f[6] + f[7] + f[8] + f[9]).isdigit() and (f[2] + f[5]) == '--' else False 
+    return esValido
+
 def finalizarPrograma():
     print('Sesión cerrada, programa finalizado')
     for c in clubes:
@@ -325,12 +329,8 @@ def consultarEmpleados():
     for j in range(len(clubes[datos[1]].lista_empleados)):
         print("Nombre:",clubes[datos[1]].lista_empleados[j].nombre, ", Apellido:",clubes[datos[1]].lista_empleados[j].apellido, ", Cargo:",clubes[datos[1]].lista_empleados[j].cargo,'\n')
 
-def validarFecha(f):
-    esValido = True if (f[0] + f[1] + f[3] + f[4] + f[6] + f[7] + f[8] + f[9]).isdigit() and (f[2] + f[5]) == '--' else False 
-    return esValido
-
 def generarPago():
-    montoInt=verificarNumeroInput("Ingrese el monto:", "Monto invalido. Ingrese el monto:")
+    montoInt=verificarNumeroInput("Ingrese el monto: ", "Monto invalido. Ingrese el monto: ")
     fecha=verificarInputConNumeros("Ingrese la fecha con el formato DD-MM-YYYY: ", "Ingrese una fecha valida siguiendo el formato DD-MM-YYYY: ")
     esValido=validarFecha(fecha)
     while esValido==False:
@@ -360,16 +360,24 @@ def eliminarPago():
     clubes[datos[1]].eliminarPago(nroPagoInt)
 
 def consultarPagos():
-    nombreClub=input('Ingrese el club del que desea consultar los pagos')
+    nombreClub=input('Ingrese el club del que desea consultar los pagos: ')
     datos=verificarExistenciaClub(nombreClub)
     while (datos[0] == False):
         nombreClub=input('Nombre del club inexistente. Ingrese el club del que quiere consultar los pagos: ')
         datos=verificarExistenciaClub(nombreClub)
     for j in range(len(clubes[datos[1]].lista_pagos)):
-        print("Fecha:", clubes[datos[1]].lista_pagos[j].fecha, ", Monto:", clubes[datos[1]].lista_pagos[j].monto, ", Numero de socio: ", clubes[datos[1]].lista_pagos[j].nroSocio,'\n')
+        print("Fecha (año/mes/dia):", clubes[datos[1]].lista_pagos[j].fecha, ", Monto:", clubes[datos[1]].lista_pagos[j].monto, ", Numero de socio: ", clubes[datos[1]].lista_pagos[j].nroSocio,'\n')
 
 def crearReserva():
-    fechaReserva=verificarInputConNumeros("Ingrese la fecha de reserva: ", "Ingrese una fecha valida: ")
+    fecha=verificarInputConNumeros("Ingrese la fecha con el formato DD-MM-YYYY: ", "Ingrese una fecha valida siguiendo el formato DD-MM-YYYY: ")
+    esValido=validarFecha(fecha)
+    while esValido==False:
+        fecha=verificarInputConNumeros("Formato invalido. Ingrese la fecha con el formato DD-MM-YYYY: ", "Ingrese una fecha valida siguiendo el formato DD-MM-YYYY: ")
+        esValido=validarFecha(fecha)
+    ano=int(fecha[6:])
+    mes=int(fecha[3:5])
+    dia=int(fecha[0:2])
+    fechadt=date(ano, mes, dia)
     horaReserva=verificarInputConNumeros("Ingrese la hora de reserva:", "Ingrese una hora valida: ")
     nroReservaInt=verificarNumeroInput("Ingrese el numero de reserva: ", "Numero de reserva invalido. Ingrese el numero de reserva: ")
     nombreClub=input("Ingrese el nombre del club en el que desea realizar la reserva: ")
@@ -383,11 +391,11 @@ def crearReserva():
         print("Instalacion inexistente. Ingrese el codigo de la instalacion que desea reservar: ")
         codigoInstalacionInt=verificarNumeroInput("Ingrese el codigo de la instalacion que desea reservar: ", "Codigo invalido. Ingrese el codigo de la instalacion que desea reservar: ")
         datos2=verificarExistenciaInstalacion(codigoInstalacionInt, datos1[1])
-    reserva=Reserva(fechaReserva, horaReserva, nroReservaInt)
+    reserva=Reserva(fechadt, horaReserva, nroReservaInt)
     clubes[datos1[1]].lista_instalaciones[datos2[1]].agregarReserva(reserva)
 
 def consultarReservas():
-    nombreClub=input('Ingrese el nombre del club del que desea consultar las reservas de una instalacion')
+    nombreClub=input('Ingrese el nombre del club del que desea consultar las reservas de una instalacion: ')
     datos1=verificarExistenciaClub(nombreClub)
     while (datos1[0] == False):
         nombreClub=input('Nombre del club inexistente. Ingrese el nombre del club del que desea consultar las reservas de una instalacion: ')
