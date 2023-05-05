@@ -47,8 +47,6 @@ class Club:
         self.clasificacion.extend([menores,adultos,mayores])
         return self.clasificacion
     
-    
-
     def guardarClub(self):
         socios_text = ""
         inst_text = ""
@@ -213,7 +211,7 @@ class Club:
         else:
             print("Ya existe un empleado con el legajo {}".format(empleado.legajo))
 
-    def eliminarSocio(self, legajo):
+    def eliminarEmpleado(self, legajo):
         esta = False
         for i in range(len(self.lista_empleados)):
             if legajo == self.lista_empleados[i].legajo:

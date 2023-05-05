@@ -76,17 +76,18 @@ def menuPrincipal():
           "7: Eliminar instalacion en un club", '\n',
           "8: Consultar instalaciones de un club", '\n',
           "9: Registrar empleado en un club", '\n',
-          "10: Consultar empleados de un club", '\n',
-          "11: Generar pago en un club", '\n',
-          "12: Eliminar pago en un club", '\n',
-          "13: Consultar pagos de un club", '\n',
-          "14: Crear reserva en una instalacion", '\n', 
-          "15: Consultar reservas en una instalacion de un club", '\n',
-          "16: Ver un grafico de los socios divididos por rango etario de un club"
+          "10: Eliminar empleado de un club", '\n',
+          "11: Consultar empleados de un club", '\n',
+          "12: Generar pago en un club", '\n',
+          "13: Eliminar pago en un club", '\n',
+          "14: Consultar pagos de un club", '\n',
+          "15: Crear reserva en una instalacion", '\n', 
+          "16: Consultar reservas en una instalacion de un club", '\n',
+          "17: Ver un grafico de los socios divididos por rango etario de un club"
 
           )
         opcionElegida=verificarOpcionMenu("Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ", "Opcion invalida. Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ")
-        while opcionElegida not in range(17):
+        while opcionElegida not in range(18):
             print("Opcion invalida")
             opcionElegida=verificarOpcionMenu("Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ", "Opcion invalida. Ingrese el numero segun la opcion que quiera elegir o 0 para cerrar sesion y finalizar: ")
         match opcionElegida:
@@ -111,18 +112,20 @@ def menuPrincipal():
             case 9:
                 registrarEmpleado()
             case 10:
-                consultarEmpleados()
+                eliminarEmpleado()
             case 11:
-                generarPago()
+                consultarEmpleados()
             case 12:
-                eliminarPago()
+                generarPago()
             case 13:
-                consultarPagos()
+                eliminarPago()
             case 14:
-                crearReserva()
+                consultarPagos()
             case 15:
-                consultarReservas()
+                crearReserva()
             case 16:
+                consultarReservas()
+            case 17:
                 graficoEdades()
 
 
@@ -350,6 +353,15 @@ def registrarEmpleado():
         datos=verificarExistenciaClub(nombreClub)
     empleado=Empleado(nombre, apellido, sexo, edadInt, dniInt, legajoInt, cargo, salarioInt)
     clubes[datos[1]].agregarEmpleado(empleado)
+
+def eliminarEmpleado():
+    nombreClub=input("Ingrese el nombre del club en el que desea eliminar un empleado: ")
+    datos=verificarExistenciaClub(nombreClub)
+    while(datos[0]==False):
+        nombreClub=input("Club inexistente. Ingrese el nombre del club en el que desea eliminar un socio: ")
+        datos=verificarExistenciaClub(nombreClub)
+    legajo=verificarNumeroInput("Ingrese el legajo del empleado que desea eliminar: ", "Numero de legajo invalido. Intente nuevamente")
+    clubes[datos[1]].eliminarEmpleado(legajo)
 
 def consultarEmpleados():
     nombreClub=input('Ingrese el club del que desea consultar los empleados: ')
